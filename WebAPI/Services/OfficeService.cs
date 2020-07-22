@@ -1,60 +1,58 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Data;
 using WebAPI.Data.Entities;
 
 namespace WebAPI.Services
 {
     public class OfficeService : IOfficeService
     {
-        private readonly List<Office> offices;
+        private readonly DataContext _dataContext;
 
-        public OfficeService()
+        public OfficeService(DataContext data)
         {
-            offices = new List<Office>();
-            for (int i = 0; i < 5; i++)
-            {
-                offices.Add(new Office 
-                { 
-                    Id = Guid.NewGuid(), 
-                    Name = "office" + i 
-                });
-            }
-        }
-        public Office GetOfficeById(Guid officeId)
-        {
-            return offices.SingleOrDefault(x => x.Id == officeId);
+            _dataContext = data;
         }
 
-        public List<Office> GetOffices()
+        public async Task<List<Office>> GetOffices()
         {
-            return offices;
+            return await _dataContext.Offices.ToListAsync();
         }
 
-        public bool UpdateOffice(Office officeToUpdate)
+        public async Task<Office> GetOfficeById(Guid officeId)
         {
-            var exists = GetOfficeById(officeToUpdate.Id) != null;
-
-            if (!exists)
-                return false;
-
-            int index = offices.FindIndex(x => x.Id == officeToUpdate.Id);
-            offices[index] = officeToUpdate;
-
-            return true;
+            return await _dataContext.Offices.SingleOrDefaultAsync(x => x.Id == officeId);
         }
 
-        public bool DeleteOffice(Guid officeId)
+        public async Task<bool> UpdateOffice(Office officeToUpdate)
         {
-            var office = GetOfficeById(officeId);
+            _dataContext.Offices.Update(officeToUpdate);
+            var updated = await _dataContext.SaveChangesAsync();
 
-            if (office == null)
-                return false;
+            return updated > 0;
+        }
 
-            offices.Remove(office);
+        public async Task<bool> DeleteOffice(Guid officeId)
+        {
+            var office = await GetOfficeById(officeId);
 
-            return true;
+            _dataContext.Offices.Remove(office);
+
+            var deleted = await _dataContext.SaveChangesAsync();
+
+            return deleted > 0;
+        }
+
+        public async Task<bool> CreateOffice(Office office)
+        {
+            await _dataContext.Offices.AddAsync(office);
+
+            var created = await _dataContext.SaveChangesAsync();
+
+            return created > 0;
         }
     }
 }

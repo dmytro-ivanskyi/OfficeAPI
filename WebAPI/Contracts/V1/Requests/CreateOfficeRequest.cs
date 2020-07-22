@@ -7,7 +7,6 @@ namespace WebAPI.Contracts.V1.Requests
 {
     public class CreateOfficeRequest
     {
-        //public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

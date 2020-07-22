@@ -19,7 +19,7 @@ namespace WebAPI.Installers
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddSingleton<IOfficeService, OfficeService>();
+            services.AddScoped<IOfficeService, OfficeService>();
         }
     }
 }

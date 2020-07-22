@@ -17,21 +17,22 @@ namespace WebAPI.Controllers.V1
     public class OfficeController : ControllerBase
     {
         private readonly IOfficeService _officeService;
+
         public OfficeController(IOfficeService officeService)
         {
             _officeService = officeService;
         }
 
         [HttpGet(ApiRoutes.Offices.GetAll)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_officeService.GetOffices());
+            return Ok(await _officeService.GetOffices());
         }
 
         [HttpGet(ApiRoutes.Offices.Get)]
-        public IActionResult Get([FromRoute] Guid officeId)
+        public async Task<IActionResult> Get([FromRoute] Guid officeId)
         {
-            var office = _officeService.GetOfficeById(officeId);
+            var office = await _officeService.GetOfficeById(officeId);
             if (office == null)
                 return NotFound();
 
@@ -39,15 +40,17 @@ namespace WebAPI.Controllers.V1
         }
 
         [HttpPost(ApiRoutes.Offices.Create)]
-        public IActionResult Create([FromBody] CreateOfficeRequest createOffice)
+        public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
         {
             var office = new Office
             {
-                Id = Guid.NewGuid(),
                 Name = createOffice.Name
             };
 
-            _officeService.GetOffices().Add(office);
+            var created = await _officeService.CreateOffice(office);
+            if (!created)
+                return BadRequest();
+
             var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var location = baseUri + "/" + ApiRoutes.Offices.Get.Replace("{officeId}", office.Id.ToString());
 
@@ -60,7 +63,7 @@ namespace WebAPI.Controllers.V1
         }
 
         [HttpPut(ApiRoutes.Offices.Update)]
-        public IActionResult Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
+        public async Task<IActionResult> Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
         {
             var office = new Office
             {
@@ -68,7 +71,8 @@ namespace WebAPI.Controllers.V1
                 Name = request.Name
             };
 
-            var updated = _officeService.UpdateOffice(office);
+            var updated =  await _officeService.UpdateOffice(office);
+
             if (updated)
                 return Ok(office);
 
@@ -76,9 +80,9 @@ namespace WebAPI.Controllers.V1
         }
 
         [HttpDelete(ApiRoutes.Offices.Delete)]
-        public IActionResult Delete([FromRoute] Guid officeId)
+        public async Task<IActionResult> Delete([FromRoute] Guid officeId)
         {
-            var deleted = _officeService.DeleteOffice(officeId);
+            var deleted = await _officeService.DeleteOffice(officeId);
 
             if (deleted)
                 return NoContent();

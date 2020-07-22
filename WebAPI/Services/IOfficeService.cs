@@ -8,11 +8,14 @@ namespace WebAPI.Services
 {
     public interface IOfficeService
     {
-        List<Office> GetOffices();
-        Office GetOfficeById(Guid officeId);
+        Task<List<Office>> GetOffices();
 
-        bool UpdateOffice(Office officeToUpdate);
+        Task<Office> GetOfficeById(Guid officeId);
 
-        bool DeleteOffice(Guid officeId);
+        Task<bool> UpdateOffice(Office officeToUpdate);
+
+        Task<bool> DeleteOffice(Guid officeId);
+
+        Task<bool> CreateOffice(Office office);
     }
 }
