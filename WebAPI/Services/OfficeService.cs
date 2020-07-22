@@ -39,6 +39,9 @@ namespace WebAPI.Services
         {
             var office = await GetOfficeById(officeId);
 
+            if (office == null)
+                return false;
+
             _dataContext.Offices.Remove(office);
 
             var deleted = await _dataContext.SaveChangesAsync();
