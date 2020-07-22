@@ -13,7 +13,11 @@ namespace WebAPI.Contracts.V1
 
         public static class Offices
         {
-            public const string GetAll = Base+"/offices"; 
+            public const string GetAll = Base+"/offices";
+            public const string Get = Base + "/office/{officeId}";
+            public const string Create = Base + "/office";
+            public const string Update = Base + "/office/{officeId}";
+            public const string Delete = Base + "/office/{officeId}";
         }
     }
 }
