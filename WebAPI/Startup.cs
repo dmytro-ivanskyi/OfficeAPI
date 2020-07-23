@@ -31,7 +31,7 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            var swaggerOptions = new WebAPI.Options.SwaggerOptions();
+            var swaggerOptions = new Options.SwaggerOptions();
             Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
             app.UseSwagger(option =>
             { 

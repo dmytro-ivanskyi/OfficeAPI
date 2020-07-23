@@ -21,6 +21,9 @@ namespace WebAPI.Controllers.V1
             _officeService = officeService;
         }
 
+        /// <summary>
+        /// Returns all offices
+        /// </summary>
         [HttpGet(ApiRoutes.Offices.GetAll)]
         public async Task<IActionResult> Get()
         {
@@ -37,6 +40,11 @@ namespace WebAPI.Controllers.V1
             return Ok(office);
         }
 
+        /// <summary>
+        /// Creates office
+        /// </summary>
+        /// <response code="201">Office created succesfully</response>
+        /// <response code="400">Unable to create</response>
         [HttpPost(ApiRoutes.Offices.Create)]
         public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
         {

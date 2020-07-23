@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
@@ -21,21 +22,21 @@ namespace WebAPI.Controllers.V1
         }
 
         // GET: api/<UsersController>
-        [HttpGet]
+        [HttpGet(ApiRoutes.Users.GetAll)]
         public async Task<IActionResult> Get()
         {
             return Ok(await _userService.GetUsers());
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{userId}")]
+        [HttpGet(ApiRoutes.Users.Get)]
         public async Task<IActionResult> Get(Guid userId)
         {
             return Ok(await _userService.GetUserById(userId));
         }
 
         // POST api/<UsersController>
-        [HttpPost]
+        [HttpPost(ApiRoutes.Users.Create)]
         public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
         {
             var user = new User
@@ -66,7 +67,7 @@ namespace WebAPI.Controllers.V1
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{userId}")]
+        [HttpPut(ApiRoutes.Users.Update)]
         public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
         {
             var user = new User
@@ -87,7 +88,7 @@ namespace WebAPI.Controllers.V1
         }
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{userId}")]
+        [HttpDelete(ApiRoutes.Users.Delete)]
         public async Task<IActionResult> Delete(Guid userId)
         {
             var deleted = await _userService.DeleteUser(userId);
