@@ -12,6 +12,6 @@ namespace WebAPI.Data
 
         public DbSet<Office> Offices { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        // public DbSet<UserTask> Tasks { get; set; }
     }
 }

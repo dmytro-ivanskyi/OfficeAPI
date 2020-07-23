@@ -6,16 +6,18 @@ namespace WebAPI.Data.Entities
 {
     public class User
     {
-        [Key]
+        //[Key]
         public Guid Id { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
 
         public Guid OfficeId { get; set; }
         public Office Office { get; set; }
-        public List<Task> Tasks { get; set; }
+
+        // public List<UserTask> Tasks { get; set; }
         // public List<UserPermission> UserPermissions { get; set; }
     }
 }

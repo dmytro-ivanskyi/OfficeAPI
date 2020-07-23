@@ -22,7 +22,7 @@ namespace WebAPI.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.Offices.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get()
         {
             return Ok(await _officeService.GetOffices());
         }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using WebAPI.Contracts.V1.Requests;
+using WebAPI.Contracts.V1.Responses;
+using WebAPI.Data.Entities;
+using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
@@ -12,36 +12,90 @@ namespace WebAPI.Controllers.V1
     [ApiController]
     public class UsersController : ControllerBase
     {
+
+        private readonly IUserService _userService;
+
+        public UsersController(IUserService service)
+        {
+            _userService = service;
+        }
+
         // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(await _userService.GetUsers());
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Get(Guid userId)
         {
-            return "value";
+            return Ok(await _userService.GetUserById(userId));
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
         {
+            var user = new User
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Age = request.Age,
+                OfficeId = request.OfficeId
+            };
+
+            var created = await _userService.CreateUser(user);
+
+            if (!created)
+                return BadRequest();
+
+            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            var location = baseUri + "/[controller]" + user.Id.ToString();
+
+            var response = new UserResponse
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                OfficeId = user.OfficeId
+            };
+            return Created(location, response);
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
         {
+            var user = new User
+            {
+                Id = userId,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Age = request.Age,
+                OfficeId = request.OfficeId
+            };
+
+            var updated = await _userService.UpdateUser(user);
+
+            if (updated)
+                return Ok(user);
+
+            return NotFound();
         }
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(Guid userId)
         {
+            var deleted = await _userService.DeleteUser(userId);
+
+            if (deleted)
+                return NoContent();
+
+            return NotFound();
         }
     }
 }

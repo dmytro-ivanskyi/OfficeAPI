@@ -20,6 +20,9 @@ namespace WebAPI.Installers
 
             services.AddScoped<IOfficeService, OfficeService>();
             services.AddScoped<IOfficeSQLRepo, OfficeSQLRepo>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserSQLRepo, UserSQLRepo>();
         }
     }
 }

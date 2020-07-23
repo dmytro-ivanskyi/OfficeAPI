@@ -16,6 +16,8 @@
     <Compile Remove="Migrations\20200723073911_user-office-tasks-upd.Designer.cs" />
     <Compile Remove="Migrations\20200723074627_user-office-tasks-upd.cs" />
     <Compile Remove="Migrations\20200723074627_user-office-tasks-upd.Designer.cs" />
+    <Compile Remove="Migrations\20200723102934_office-fixed.cs" />
+    <Compile Remove="Migrations\20200723102934_office-fixed.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
