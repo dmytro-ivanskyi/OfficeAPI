@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Data;
+using WebAPI.Data.Repositories;
 using WebAPI.Services;
+using WebAPI.Services.Interfaces.RepoInterfaces;
+using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Installers
 {
@@ -20,6 +19,7 @@ namespace WebAPI.Installers
             });
 
             services.AddScoped<IOfficeService, OfficeService>();
+            services.AddScoped<IOfficeSQLRepo, OfficeSQLRepo>();
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Data.Entities;
 
-namespace WebAPI.Services
-{
-    public interface IOfficeService
+namespace WebAPI.Services.Interfaces.RepoInterfaces
+{ 
+    public interface IOfficeSQLRepo
     {
         Task<List<Office>> GetOffices();
 

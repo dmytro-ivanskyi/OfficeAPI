@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +6,7 @@ using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
-using WebAPI.Services;
+using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
