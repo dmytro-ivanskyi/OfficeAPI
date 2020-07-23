@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Data.Entities;
 
 namespace WebAPI.Data
@@ -15,5 +11,7 @@ namespace WebAPI.Data
         }
 
         public DbSet<Office> Offices { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Task> Tasks { get; set; }
     }
 }
