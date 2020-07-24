@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200724131238_addUserPermS")]
+    partial class addUserPermS
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,26 +95,6 @@ namespace WebAPI.Migrations
                     b.ToTable("UserPermission");
                 });
 
-            modelBuilder.Entity("WebAPI.Data.Entities.UserTask", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserTask");
-                });
-
             modelBuilder.Entity("WebAPI.Data.Entities.User", b =>
                 {
                     b.HasOne("WebAPI.Data.Entities.Office", null)
@@ -132,15 +114,6 @@ namespace WebAPI.Migrations
 
                     b.HasOne("WebAPI.Data.Entities.User", "User")
                         .WithMany("Permissions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebAPI.Data.Entities.UserTask", b =>
-                {
-                    b.HasOne("WebAPI.Data.Entities.User", "User")
-                        .WithMany("Tasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

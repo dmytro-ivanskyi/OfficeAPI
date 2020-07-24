@@ -8,7 +8,7 @@ namespace WebAPI.Data.Repositories
 {
     public class TaskSQLRepo : ITaskSQLRepo
     {
-        public Task<bool> CreateTask(UserTask task)
+        public Task<bool> CreateTask(Entities.UserTask task)
         {
             throw new NotImplementedException();
         }
@@ -18,17 +18,17 @@ namespace WebAPI.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<UserTask> GetTaskById(Guid taskId)
+        public Task<Task> GetTaskById(Guid taskId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<UserTask>> GetTasks()
+        public Task<List<Task>> GetTasks()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateTask(UserTask taskToUpdate)
+        public Task<bool> UpdateTask(Entities.UserTask taskToUpdate)
         {
             throw new NotImplementedException();
         }

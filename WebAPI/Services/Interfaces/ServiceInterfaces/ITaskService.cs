@@ -7,13 +7,13 @@ namespace WebAPI.Services.Interfaces.ServiceInterfaces
 {
     public interface ITaskService
     {
-        Task<List<UserTask>> GetTasks();
+        Task<List<Task>> GetTasks();
 
-        Task<UserTask> GetTaskById(Guid taskId);
+        Task<Task> GetTaskById(Guid taskId);
 
-        Task<bool> CreateTask(UserTask task);
+        Task<bool> CreateTask(Data.Entities.UserTask task);
 
-        Task<bool> UpdateTask(UserTask taskToUpdate);
+        Task<bool> UpdateTask(Data.Entities.UserTask taskToUpdate);
 
         Task<bool> DeleteTask(Guid taskId);
     }

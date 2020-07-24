@@ -18,8 +18,6 @@ namespace WebAPI.Data.Entities
 
         public List<UserPermission> Permissions { get; set; }
 
-        //public Office Office { get; set; }
-        // public List<UserTask> Tasks { get; set; }
-
+        public List<UserTask> Tasks { get; set; }
     }
 }
