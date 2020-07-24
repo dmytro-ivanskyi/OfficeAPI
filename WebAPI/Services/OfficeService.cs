@@ -19,13 +19,7 @@ namespace WebAPI.Services
 
         public async Task<List<OfficeResponse>> GetOffices()
         {
-            var offices = await _officeSQLRepo.GetOffices();
-            List<OfficeResponse> officeList = new List<OfficeResponse>();
-            foreach (var o in offices )
-            {
-                officeList.Add(new OfficeResponse { Id = o.Id, Name = o.Name });
-            }
-            return officeList;
+            return await _officeSQLRepo.GetOffices();
         }
 
         public async Task<Office> GetOfficeById(Guid officeId)

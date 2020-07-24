@@ -23,7 +23,9 @@ namespace WebAPI.Data.Repositories
 
         public async Task<User> GetUserById(Guid userId)
         {
-            return await _dataContext.Users.SingleOrDefaultAsync(x => x.Id == userId);
+            return await _dataContext.Users
+                .Include(u => u.Permissions)
+                .SingleOrDefaultAsync(x => x.Id == userId);
         }
 
         public async Task<bool> UpdateUser(User userToUpdate)

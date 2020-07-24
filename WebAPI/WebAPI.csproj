@@ -23,6 +23,12 @@
     <Compile Remove="Migrations\20200723074627_user-office-tasks-upd.Designer.cs" />
     <Compile Remove="Migrations\20200723102934_office-fixed.cs" />
     <Compile Remove="Migrations\20200723102934_office-fixed.Designer.cs" />
+    <Compile Remove="Migrations\20200724115938_addUserPermZ.cs" />
+    <Compile Remove="Migrations\20200724115938_addUserPermZ.Designer.cs" />
+    <Compile Remove="Migrations\20200724123125_addUserPermS.cs" />
+    <Compile Remove="Migrations\20200724123125_addUserPermS.Designer.cs" />
+    <Compile Remove="Migrations\20200724124238_addUserPermQ.cs" />
+    <Compile Remove="Migrations\20200724124238_addUserPermQ.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

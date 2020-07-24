@@ -22,14 +22,14 @@ namespace WebAPI.Data
                 .HasKey(userPerm => new { userPerm.UserId, userPerm.PermissionId });
 
             modelBuilder.Entity<UserPermission>()
-                .HasOne(userPerm => userPerm.User)
-                .WithMany(user => user.Permissions)
-                .HasForeignKey(userPerm => userPerm.UserId);
-
-            modelBuilder.Entity<UserPermission>()
                 .HasOne(userPerm => userPerm.Permission)
                 .WithMany(perm => perm.Permissions)
                 .HasForeignKey(userPerm => userPerm.PermissionId);
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(userPerm => userPerm.User)
+                .WithMany(user => user.Permissions)
+                .HasForeignKey(userPerm => userPerm.UserId);
         }
 
 

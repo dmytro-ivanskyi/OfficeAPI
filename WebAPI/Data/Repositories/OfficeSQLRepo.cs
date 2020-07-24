@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 using WebAPI.Services.Interfaces.RepoInterfaces;
 
@@ -16,9 +18,11 @@ namespace WebAPI.Data.Repositories
             _dataContext = data;
         }
 
-        public async Task<List<Office>> GetOffices()
+        public async Task<List<OfficeResponse>> GetOffices()
         {
-            return await _dataContext.Offices.ToListAsync();
+            return await _dataContext.Offices
+                .Select(x => new OfficeResponse { Id = x.Id, Name = x.Name })
+                .ToListAsync();
         }
 
         public async Task<Office> GetOfficeById(Guid officeId)

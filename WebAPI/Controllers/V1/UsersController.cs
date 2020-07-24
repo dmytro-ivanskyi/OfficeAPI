@@ -21,6 +21,7 @@ namespace WebAPI.Controllers.V1
             _userService = service;
         }
 
+
         // GET: api/<UsersController>
         [HttpGet(ApiRoutes.Users.GetAll)]
         public async Task<IActionResult> Get()
@@ -28,12 +29,14 @@ namespace WebAPI.Controllers.V1
             return Ok(await _userService.GetUsers());
         }
 
+
         // GET api/<UsersController>/5
         [HttpGet(ApiRoutes.Users.Get)]
         public async Task<IActionResult> Get(Guid userId)
         {
             return Ok(await _userService.GetUserById(userId));
         }
+
 
         // POST api/<UsersController>
         [HttpPost(ApiRoutes.Users.Create)]
@@ -63,8 +66,10 @@ namespace WebAPI.Controllers.V1
                 Age = user.Age,
                 OfficeId = user.OfficeId
             };
+
             return Created(location, response);
         }
+
 
         // PUT api/<UsersController>/5
         [HttpPut(ApiRoutes.Users.Update)]
@@ -86,6 +91,7 @@ namespace WebAPI.Controllers.V1
 
             return NotFound();
         }
+
 
         // DELETE api/<UsersController>/5
         [HttpDelete(ApiRoutes.Users.Delete)]

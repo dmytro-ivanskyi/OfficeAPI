@@ -17,6 +17,7 @@ namespace WebAPI.Data.Entities
         public Guid OfficeId { get; set; }
 
         public List<UserPermission> Permissions { get; set; }
+
         //public Office Office { get; set; }
         // public List<UserTask> Tasks { get; set; }
 

@@ -21,6 +21,7 @@ namespace WebAPI.Controllers.V1
             _officeService = officeService;
         }
 
+
         /// <summary>
         /// Returns all offices
         /// </summary>
@@ -30,15 +31,18 @@ namespace WebAPI.Controllers.V1
             return Ok(await _officeService.GetOffices());
         }
 
+
         [HttpGet(ApiRoutes.Offices.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid officeId)
         {
             var office = await _officeService.GetOfficeById(officeId);
+
             if (office == null)
                 return NotFound();
 
             return Ok(office);
         }
+
 
         /// <summary>
         /// Returns all users in an office
@@ -53,6 +57,7 @@ namespace WebAPI.Controllers.V1
 
             return Ok(office);
         }
+
 
         /// <summary>
         /// Creates office
@@ -79,8 +84,10 @@ namespace WebAPI.Controllers.V1
                 Id = office.Id,
                 Name = office.Name
             };
+
             return Created(location, response);
         }
+
 
         [HttpPut(ApiRoutes.Offices.Update)]
         public async Task<IActionResult> Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
@@ -98,6 +105,7 @@ namespace WebAPI.Controllers.V1
 
             return NotFound();
         }
+
 
         [HttpDelete(ApiRoutes.Offices.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid officeId)
