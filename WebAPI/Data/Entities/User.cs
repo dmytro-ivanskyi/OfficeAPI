@@ -15,9 +15,10 @@ namespace WebAPI.Data.Entities
         public int Age { get; set; }
 
         public Guid OfficeId { get; set; }
-        public Office Office { get; set; }
 
+        public List<UserPermission> Permissions { get; set; }
+        //public Office Office { get; set; }
         // public List<UserTask> Tasks { get; set; }
-        // public List<UserPermission> UserPermissions { get; set; }
+
     }
 }

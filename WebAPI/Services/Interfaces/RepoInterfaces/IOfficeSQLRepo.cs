@@ -11,6 +11,8 @@ namespace WebAPI.Services.Interfaces.RepoInterfaces
 
         Task<Office> GetOfficeById(Guid officeId);
 
+        Task<Office> GetOfficeByIdWithUsers(Guid officeId);
+
         Task<bool> UpdateOffice(Office officeToUpdate);
 
         Task<bool> DeleteOffice(Guid officeId);

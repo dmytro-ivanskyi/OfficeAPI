@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 using WebAPI.Services.Interfaces.RepoInterfaces;
 using WebAPI.Services.Interfaces.ServiceInterfaces;
@@ -16,14 +17,25 @@ namespace WebAPI.Services
             _officeSQLRepo = officeSQLRepo;
         }
 
-        public async Task<List<Office>> GetOffices()
+        public async Task<List<OfficeResponse>> GetOffices()
         {
-            return await _officeSQLRepo.GetOffices();
+            var offices = await _officeSQLRepo.GetOffices();
+            List<OfficeResponse> officeList = new List<OfficeResponse>();
+            foreach (var o in offices )
+            {
+                officeList.Add(new OfficeResponse { Id = o.Id, Name = o.Name });
+            }
+            return officeList;
         }
 
         public async Task<Office> GetOfficeById(Guid officeId)
         {
             return await _officeSQLRepo.GetOfficeById(officeId);
+        }
+
+        public async Task<Office> GetOfficeByIdWithUsers(Guid officeId)
+        {
+            return await _officeSQLRepo.GetOfficeByIdWithUsers(officeId);
         }
 
         public async Task<bool> UpdateOffice(Office officeToUpdate)

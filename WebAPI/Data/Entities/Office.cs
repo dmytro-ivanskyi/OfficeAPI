@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace WebAPI.Data.Entities
 {
@@ -7,7 +8,9 @@ namespace WebAPI.Data.Entities
         [Key]
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
+        [Required]
         public string Name { get; set; }
+
+        public List<User> Users { get; set; }
     }
 }

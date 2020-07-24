@@ -9,7 +9,7 @@ using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

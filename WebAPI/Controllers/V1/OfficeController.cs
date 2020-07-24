@@ -10,7 +10,7 @@ using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
     [ApiController]
     public class OfficeController : ControllerBase
     {
@@ -34,6 +34,20 @@ namespace WebAPI.Controllers.V1
         public async Task<IActionResult> Get([FromRoute] Guid officeId)
         {
             var office = await _officeService.GetOfficeById(officeId);
+            if (office == null)
+                return NotFound();
+
+            return Ok(office);
+        }
+
+        /// <summary>
+        /// Returns all users in an office
+        /// </summary>
+        [HttpGet(ApiRoutes.Offices.Get+"/users")]
+        public async Task<IActionResult> GetUsers([FromRoute] Guid officeId)
+        {
+            var office = await _officeService.GetOfficeByIdWithUsers(officeId);
+
             if (office == null)
                 return NotFound();
 

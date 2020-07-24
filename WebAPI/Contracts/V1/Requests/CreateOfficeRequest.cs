@@ -4,7 +4,7 @@ namespace WebAPI.Contracts.V1.Requests
 {
     public class CreateOfficeRequest
     {
-        //[Required(ErrorMessage = "Office must have a name")]
+        //[Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
     }
 }

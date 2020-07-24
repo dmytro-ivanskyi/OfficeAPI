@@ -11,7 +11,28 @@ namespace WebAPI.Data
         }
 
         public DbSet<Office> Offices { get; set; }
+
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Permission> Permissions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserPermission>()
+                .HasKey(userPerm => new { userPerm.UserId, userPerm.PermissionId });
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(userPerm => userPerm.User)
+                .WithMany(user => user.Permissions)
+                .HasForeignKey(userPerm => userPerm.UserId);
+
+            modelBuilder.Entity<UserPermission>()
+                .HasOne(userPerm => userPerm.Permission)
+                .WithMany(perm => perm.Permissions)
+                .HasForeignKey(userPerm => userPerm.PermissionId);
+        }
+
+
         // public DbSet<UserTask> Tasks { get; set; }
     }
 }

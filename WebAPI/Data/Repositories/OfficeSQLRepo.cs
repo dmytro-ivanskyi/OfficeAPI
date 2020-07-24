@@ -26,6 +26,14 @@ namespace WebAPI.Data.Repositories
             return await _dataContext.Offices.SingleOrDefaultAsync(x => x.Id == officeId);
         }
 
+        public async Task<Office> GetOfficeByIdWithUsers(Guid officeId)
+        {
+            var officeUsers = await _dataContext.Offices
+                .Include(of => of.Users)
+                .SingleOrDefaultAsync(x => x.Id == officeId);
+            return officeUsers;
+        }
+
         public async Task<bool> UpdateOffice(Office officeToUpdate)
         {
             _dataContext.Offices.Update(officeToUpdate);
@@ -53,7 +61,7 @@ namespace WebAPI.Data.Repositories
             await _dataContext.Offices.AddAsync(office);
 
             var created = await _dataContext.SaveChangesAsync();
-
+           
             return created > 0;
         }
     }
