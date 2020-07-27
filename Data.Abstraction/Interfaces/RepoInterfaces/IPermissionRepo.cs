@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
 
 namespace WebAPI.Services.Interfaces.RepoInterfaces
 {
-    public interface IPermissionSQLRepo
+    public interface IPermissionRepo
     {
-        Task<List<PermissionResponse>> GetPermissions();
+        Task<List<Permission>> GetPermissions();
 
-        Task<PermissionResponse> GetPermissionById(Guid permissionId);
+        Task<Permission> GetPermissionById(Guid permissionId);
 
         Task<bool> CreatePermission(Permission permission);
 

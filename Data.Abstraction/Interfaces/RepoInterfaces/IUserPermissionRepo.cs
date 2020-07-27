@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using WebAPI.Data.Entities;
 
 namespace WebAPI.Services.Interfaces.RepoInterfaces
 {
-    public interface IUserPermissionSQLRepo
+    public interface IUserPermissionRepo
     {
         Task<bool> CreateUserPermission(UserPermission userPermission);
     }

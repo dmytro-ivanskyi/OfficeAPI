@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
 
 namespace WebAPI.Services.Interfaces.ServiceInterfaces
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetUsers();
+        Task<List<User>> GetUsers();
 
         Task<User> GetUserById(Guid userId);
 
