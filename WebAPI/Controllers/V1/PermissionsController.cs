@@ -26,7 +26,7 @@ namespace WebAPI.Controllers.V1
 
         // GET: api/Permissions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Permission>>> GetPermissions()
+        public async Task<IActionResult> GetPermissions()
         {
             return Ok(await _permissionService.GetPermissions());
         }
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers.V1
 
         // GET: api/Permissions/5
         [HttpGet("{permissionId}")]
-        public async Task<ActionResult<Permission>> GetPermission(Guid permissionId)
+        public async Task<IActionResult> GetPermission(Guid permissionId)
         {
             var permission = await _permissionService.GetPermissionById(permissionId);
 
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers.V1
 
         // POST: api/Permissions
         [HttpPost]
-        public async Task<ActionResult<Permission>> PostPermission([FromBody] CreatePermissionRequest createPermission)
+        public async Task<IActionResult> PostPermission([FromBody] CreatePermissionRequest createPermission)
         {
             var permission = new Permission
             {
@@ -94,6 +94,7 @@ namespace WebAPI.Controllers.V1
 
             return NotFound();
         }
+
         /// <summary>
         /// Assigns permission to user
         /// </summary>
@@ -117,7 +118,7 @@ namespace WebAPI.Controllers.V1
 
         // DELETE: api/Permissions/5
         [HttpDelete("{permissionId}")]
-        public async Task<ActionResult<Permission>> DeletePermission(Guid permissionId)
+        public async Task<IActionResult> DeletePermission(Guid permissionId)
         {
             var deleted = await _permissionService.DeletePermission(permissionId);
             if (deleted)
