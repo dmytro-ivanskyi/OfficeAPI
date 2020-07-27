@@ -15,10 +15,12 @@ namespace WebAPI.Controllers.V1
     public class PermissionsController : ControllerBase
     {
         private readonly IPermissionService _permissionService;
+        private readonly IUserPermissionService _userPermissionService;
 
-        public PermissionsController(IPermissionService service)
+        public PermissionsController(IPermissionService service, IUserPermissionService userPermissionService)
         {
             _permissionService = service;
+            _userPermissionService = userPermissionService;
         }
 
 
@@ -92,7 +94,26 @@ namespace WebAPI.Controllers.V1
 
             return NotFound();
         }
+        /// <summary>
+        /// Assigns permission to user
+        /// </summary>
+        // PUT: api/Permissions/5/3
+        [HttpPost("{permissionId}/{userId}")]
+        public async Task<IActionResult> PutPermission([FromRoute] Guid permissionId, [FromRoute] Guid userId)
+        {
+            var userPermission = new UserPermission
+            {
+                UserId = userId,
+                PermissionId = permissionId
+            };
 
+            var created = await _userPermissionService.CreateUserPermission(userPermission);
+
+            if (!created)
+                return BadRequest();
+
+            return NoContent();
+        }
 
         // DELETE: api/Permissions/5
         [HttpDelete("{permissionId}")]

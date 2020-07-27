@@ -6,7 +6,6 @@ namespace WebAPI.Data.Entities
 {
     public class User
     {
-        //[Key]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "First name is required")]

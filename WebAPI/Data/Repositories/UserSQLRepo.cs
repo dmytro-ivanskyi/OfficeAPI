@@ -37,10 +37,8 @@ namespace WebAPI.Data.Repositories
             var user = await _dataContext.Users
                 .Include(u => u.Tasks)
                 .SingleOrDefaultAsync(x => x.Id == userId);
-
-            _dataContext.UserPermissions.Where(x => x.UserId == userId)
-                .Select(x => new { Id = x.PermissionId });
-            //await _dataContext.Entry(user).Collection(x => x.Permissions).LoadAsync().;
+            await _dataContext.Entry(user).Collection(user => user.Permissions).LoadAsync();
+            //await _dataContext.UserPermissions.Where(x => x.UserId == userId).LoadAsync();
 
             return user;
         }
