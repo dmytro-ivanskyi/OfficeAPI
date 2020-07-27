@@ -26,6 +26,9 @@ namespace WebAPI.Installers
 
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IPermissionSQLRepo, PermissionSQLRepo>();
+
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ITaskSQLRepo, TaskSQLRepo>();
         }
     }
 }

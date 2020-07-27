@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 using WebAPI.Services.Interfaces.RepoInterfaces;
 using WebAPI.Services.Interfaces.ServiceInterfaces;
@@ -31,7 +32,7 @@ namespace WebAPI.Services
             return await _userSQLRepo.GetUserById(userId);
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<UserResponse>> GetUsers()
         {
             return await _userSQLRepo.GetUsers();
         }

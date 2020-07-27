@@ -14,7 +14,12 @@ namespace WebAPI.Data
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<UserTask> Tasks { get; set; }
+
         public DbSet<Permission> Permissions { get; set; }
+
+        public DbSet<UserPermission> UserPermissions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,8 +36,5 @@ namespace WebAPI.Data
                 .WithMany(user => user.Permissions)
                 .HasForeignKey(userPerm => userPerm.UserId);
         }
-
-
-        // public DbSet<UserTask> Tasks { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 using WebAPI.Services.Interfaces.RepoInterfaces;
 
@@ -16,16 +18,31 @@ namespace WebAPI.Data.Repositories
             _dataContext = data;
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<UserResponse>> GetUsers()
         {
-            return await _dataContext.Users.ToListAsync();
+            return await _dataContext.Users
+                .Select(x => new UserResponse
+                {
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Age = x.Age,
+                    OfficeId = x.OfficeId
+                })
+                .ToListAsync();
         }
 
         public async Task<User> GetUserById(Guid userId)
         {
-            return await _dataContext.Users
-                .Include(u => u.Permissions)
+            var user = await _dataContext.Users
+                .Include(u => u.Tasks)
                 .SingleOrDefaultAsync(x => x.Id == userId);
+
+            _dataContext.UserPermissions.Where(x => x.UserId == userId)
+                .Select(x => new { Id = x.PermissionId });
+            //await _dataContext.Entry(user).Collection(x => x.Permissions).LoadAsync().;
+
+            return user;
         }
 
         public async Task<bool> UpdateUser(User userToUpdate)

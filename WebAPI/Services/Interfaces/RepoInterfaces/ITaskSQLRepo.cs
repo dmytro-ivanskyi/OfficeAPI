@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 
 namespace WebAPI.Services.Interfaces.RepoInterfaces
 {
     public interface ITaskSQLRepo
     {
-        Task<List<Task>> GetTasks();
+        Task<List<UserTaskResponse>> GetTasks();
 
-        Task<Task> GetTaskById(Guid taskId);
+        Task<UserTaskResponse> GetTaskById(Guid taskId);
 
-        Task<bool> CreateTask(Data.Entities.UserTask task);
+        Task<bool> CreateTask(UserTask task);
 
-        Task<bool> UpdateTask(Data.Entities.UserTask taskToUpdate);
+        Task<bool> UpdateTask(UserTask taskToUpdate);
 
         Task<bool> DeleteTask(Guid taskId);
     }

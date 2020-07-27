@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using WebAPI.Contracts.V1.Requests;
+using WebAPI.Contracts.V1.Responses;
 using WebAPI.Data.Entities;
 using WebAPI.Services.Interfaces.RepoInterfaces;
 
@@ -8,29 +13,63 @@ namespace WebAPI.Data.Repositories
 {
     public class TaskSQLRepo : ITaskSQLRepo
     {
-        public Task<bool> CreateTask(Entities.UserTask task)
+        private readonly DataContext _dataContext;
+        public TaskSQLRepo(DataContext data)
         {
-            throw new NotImplementedException();
+            _dataContext = data;
+        }
+        public async Task<bool> CreateTask(UserTask task)
+        {
+            await _dataContext.Tasks.AddAsync(task);
+
+            var created = await _dataContext.SaveChangesAsync();
+
+            return created > 0;
         }
 
-        public Task<bool> DeleteTask(Guid taskId)
+        public async Task<bool> UpdateTask(UserTask taskToUpdate)
         {
-            throw new NotImplementedException();
+            _dataContext.Tasks.Update(taskToUpdate);
+            var updated = await _dataContext.SaveChangesAsync();
+
+            return updated > 0;
         }
 
-        public Task<Task> GetTaskById(Guid taskId)
+        public async Task<bool> DeleteTask(Guid taskId)
         {
-            throw new NotImplementedException();
+            var task = await _dataContext.Tasks.SingleOrDefaultAsync(t => t.Id == taskId);
+            if (task == null)
+                return false;
+
+            _dataContext.Tasks.Remove(task);
+
+            var deleted = await _dataContext.SaveChangesAsync();
+
+            return deleted > 0;
         }
 
-        public Task<List<Task>> GetTasks()
+        public async Task<UserTaskResponse> GetTaskById(Guid taskId)
         {
-            throw new NotImplementedException();
+            var task = await _dataContext.Tasks.SingleOrDefaultAsync(t => t.Id == taskId);
+
+            return new UserTaskResponse
+            {
+                Id = task.Id,
+                Description = task.Description,
+                UserId = task.UserId
+            };
         }
 
-        public Task<bool> UpdateTask(Entities.UserTask taskToUpdate)
+        public async Task<List<UserTaskResponse>> GetTasks()
         {
-            throw new NotImplementedException();
+            return await _dataContext.Tasks
+                .Select(x => new UserTaskResponse 
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    UserId = x.UserId
+                })
+                .ToListAsync();
         }
     }
 }
