@@ -1,11 +1,13 @@
-﻿using Data.Abstraction.Interfaces.RepoInterfaces;
-using Data.Abstraction.Interfaces.ServiceInterfaces;
-using Data.Abstraction.Services;
+﻿using Data.Abstraction.RepoInterfaces;
 using Data.EF;
 using Data.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Service.Abstraction.Mappers;
+using Service.Abstraction.Mappers.MapperInterfaces;
+using Service.Abstraction.ServiceInterfaces;
+using Service.Services;
 
 namespace WebAPI.Installers
 {
@@ -20,18 +22,19 @@ namespace WebAPI.Installers
 
             services.AddScoped<IOfficeService, OfficeService>();
             services.AddScoped<IOfficeRepo, OfficeRepo>();
+            services.AddScoped<IOfficeMapper, OfficeMapper>();
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepo, UserRepo>();
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IUserRepo, UserRepo>();
 
-            services.AddScoped<IPermissionService, PermissionService>();
-            services.AddScoped<IPermissionRepo, PermissionRepo>();
+            //services.AddScoped<IPermissionService, PermissionService>();
+            //services.AddScoped<IPermissionRepo, PermissionRepo>();
 
-            services.AddScoped<IUserPermissionService, UserPermissionService>();
-            services.AddScoped<IUserPermissionRepo, UserPermissionRepo>();
+            //services.AddScoped<IUserPermissionService, UserPermissionService>();
+            //services.AddScoped<IUserPermissionRepo, UserPermissionRepo>();
 
-            services.AddScoped<ITaskService, TaskService>();
-            services.AddScoped<ITaskRepo, TaskRepo>();
+            //services.AddScoped<ITaskService, TaskService>();
+            //services.AddScoped<ITaskRepo, TaskRepo>();
         }
     }
 }

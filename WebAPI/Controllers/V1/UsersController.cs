@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Service.Abstraction.ServiceInterfaces;
 using WebAPI.Contracts.V1;
-using WebAPI.Contracts.V1.Requests;
 
 namespace WebAPI.Controllers.V1
 {

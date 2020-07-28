@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Data.Abstraction.Interfaces.ServiceInterfaces;
-using Microsoft.AspNetCore.Http;
+using Data.Abstraction.Models;
 using Microsoft.AspNetCore.Mvc;
+using Service.Abstraction.ServiceInterfaces;
 using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
 
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers.V1
         /// Returns all users in an office
         /// </summary>
         [HttpGet(ApiRoutes.Offices.Get+"/users")]
-        public async Task<IActionResult> GetUsers([FromRoute] Guid officeId)
+        public async Task<IActionResult> GetWithUsers([FromRoute] Guid officeId)
         {
             var office = await _officeService.GetOfficeByIdWithUsersAsync(officeId);
 
@@ -57,43 +57,46 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        ///// <summary>
-        ///// Creates office
-        ///// </summary>
-        ///// <response code="201">Office created succesfully</response>
-        ///// <response code="400">Unable to create</response>
-        //[HttpPost(ApiRoutes.Offices.Create)]
-        //public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
-        //{
-        //    var created = await _officeService.CreateOfficeAsync();
-        //    if (!created)
-        //        return BadRequest();
+        /// <summary>
+        /// Creates office
+        /// </summary>
+        /// <response code="201">Office created succesfully</response>
+        /// <response code="400">Unable to create</response>
+        [HttpPost(ApiRoutes.Offices.Create)]
+        public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
+        {
+            var office = new Office
+            {
+                Name = createOffice.Name
+            };
 
-        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-        //    var location = baseUri + "/" + ApiRoutes.Offices.Get.Replace("{officeId}", office.Id.ToString());
+            var created = await _officeService.CreateOfficeAsync(office);
+            if (!created)
+                return BadRequest();
 
-        //    var response = 
+            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            var location = baseUri + "/" + ApiRoutes.Offices.Get.Replace("{officeId}", office.Id.ToString());
 
-        //    return Created(location, response);
-        //}
+            return Created(location, new { Message = "Office Created"});
+        }
 
 
-        //[HttpPut(ApiRoutes.Offices.Update)]
-        //public async Task<IActionResult> Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
-        //{
-        //    var office = new Office
-        //    {
-        //        Id = officeId,
-        //        Name = request.Name
-        //    };
+        [HttpPut(ApiRoutes.Offices.Update)]
+        public async Task<IActionResult> Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
+        {
+            var office = new Office
+            {
+                Id = officeId,
+                Name = request.Name
+            };
 
-        //    var updated =  await _officeService.UpdateOfficeAsync(office);
+            var updated = await _officeService.UpdateOfficeAsync(office);
 
-        //    if (updated)
-        //        return Ok(office);
+            if (updated)
+                return Ok(office);
 
-        //    return NotFound();
-        //}
+            return NotFound();
+        }
 
 
         [HttpDelete(ApiRoutes.Offices.Delete)]

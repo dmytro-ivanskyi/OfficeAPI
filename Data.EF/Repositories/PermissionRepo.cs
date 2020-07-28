@@ -1,4 +1,4 @@
-﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+﻿using Data.Abstraction.RepoInterfaces;
 using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
