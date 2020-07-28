@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    class PermissionRepo : IPermissionRepo
+    public class PermissionRepo : IPermissionRepo
     {
         private readonly DataContext _dataContext;
 
-        PermissionRepo(DataContext data)
+        public PermissionRepo(DataContext data)
         {
             _dataContext = data;
         }
 
-        async Task<List<Permission>> GetPermissionsAsync()
+        public async Task<List<Permission>> GetPermissionsAsync()
         {
             return await _dataContext.Permissions.ToListAsync();
         }
 
-        async Task<Permission> GetPermissionByIdAsync(Guid permissionId)
+        public async Task<Permission> GetPermissionByIdAsync(Guid permissionId)
         {
             var perm = await _dataContext.Permissions.SingleOrDefaultAsync(x => x.Id == permissionId);
 
             return perm;
         }
 
-        async Task<bool> CreatePermissionAsync(Permission permission)
+        public async Task<bool> CreatePermissionAsync(Permission permission)
         {
             await _dataContext.Permissions.AddAsync(permission);
 
@@ -36,7 +36,7 @@ namespace Data.EF.Repositories
             return created > 0;
         }
 
-        async Task<bool> UpdatePermissionAsync(Permission permissionToUpdate)
+        public async Task<bool> UpdatePermissionAsync(Permission permissionToUpdate)
         {
             _dataContext.Permissions.Update(permissionToUpdate);
 
@@ -45,7 +45,7 @@ namespace Data.EF.Repositories
             return updated > 0;
         }
 
-        async Task<bool> DeletePermissionAsync(Guid permissionId)
+        public async Task<bool> DeletePermissionAsync(Guid permissionId)
         {
             var permission = await _dataContext.Permissions.SingleOrDefaultAsync(x => x.Id == permissionId);
 

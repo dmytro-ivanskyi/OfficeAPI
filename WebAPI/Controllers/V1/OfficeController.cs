@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
@@ -28,14 +27,14 @@ namespace WebAPI.Controllers.V1
         [HttpGet(ApiRoutes.Offices.GetAll)]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _officeService.GetOffices());
+            return Ok(await _officeService.GetOfficesAsync());
         }
 
 
         [HttpGet(ApiRoutes.Offices.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid officeId)
         {
-            var office = await _officeService.GetOfficeById(officeId);
+            var office = await _officeService.GetOfficeByIdAsync(officeId);
 
             if (office == null)
                 return NotFound();
@@ -50,7 +49,7 @@ namespace WebAPI.Controllers.V1
         [HttpGet(ApiRoutes.Offices.Get+"/users")]
         public async Task<IActionResult> GetUsers([FromRoute] Guid officeId)
         {
-            var office = await _officeService.GetOfficeByIdWithUsers(officeId);
+            var office = await _officeService.GetOfficeByIdWithUsersAsync(officeId);
 
             if (office == null)
                 return NotFound();
@@ -72,7 +71,7 @@ namespace WebAPI.Controllers.V1
                 Name = createOffice.Name
             };
 
-            var created = await _officeService.CreateOffice(office);
+            var created = await _officeService.CreateOfficeAsync(office);
             if (!created)
                 return BadRequest();
 
@@ -98,7 +97,7 @@ namespace WebAPI.Controllers.V1
                 Name = request.Name
             };
 
-            var updated =  await _officeService.UpdateOffice(office);
+            var updated =  await _officeService.UpdateOfficeAsync(office);
 
             if (updated)
                 return Ok(office);
@@ -110,7 +109,7 @@ namespace WebAPI.Controllers.V1
         [HttpDelete(ApiRoutes.Offices.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid officeId)
         {
-            var deleted = await _officeService.DeleteOffice(officeId);
+            var deleted = await _officeService.DeleteOfficeAsync(officeId);
 
             if (deleted)
                 return NoContent();

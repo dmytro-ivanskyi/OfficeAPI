@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
@@ -26,7 +25,7 @@ namespace WebAPI.Controllers.V1
         [HttpGet(ApiRoutes.Users.GetAll)]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _userService.GetUsers());
+            return Ok(await _userService.GetUsersAsync());
         }
 
 
@@ -34,7 +33,7 @@ namespace WebAPI.Controllers.V1
         [HttpGet(ApiRoutes.Users.Get)]
         public async Task<IActionResult> Get(Guid userId)
         {
-            return Ok(await _userService.GetUserById(userId));
+            return Ok(await _userService.GetUserByIdAsync(userId));
         }
 
 
@@ -50,7 +49,7 @@ namespace WebAPI.Controllers.V1
                 OfficeId = request.OfficeId
             };
 
-            var created = await _userService.CreateUser(user);
+            var created = await _userService.CreateUserAsync(user);
 
             if (!created)
                 return BadRequest();
@@ -84,7 +83,7 @@ namespace WebAPI.Controllers.V1
                 OfficeId = request.OfficeId
             };
 
-            var updated = await _userService.UpdateUser(user);
+            var updated = await _userService.UpdateUserAsync(user);
 
             if (updated)
                 return Ok(user);
@@ -97,7 +96,7 @@ namespace WebAPI.Controllers.V1
         [HttpDelete(ApiRoutes.Users.Delete)]
         public async Task<IActionResult> Delete(Guid userId)
         {
-            var deleted = await _userService.DeleteUser(userId);
+            var deleted = await _userService.DeleteUserAsync(userId);
 
             if (deleted)
                 return NoContent();

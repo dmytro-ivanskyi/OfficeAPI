@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
@@ -28,7 +26,7 @@ namespace WebAPI.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetPermissions()
         {
-            return Ok(await _permissionService.GetPermissions());
+            return Ok(await _permissionService.GetPermissionsAsync());
         }
 
 
@@ -36,7 +34,7 @@ namespace WebAPI.Controllers.V1
         [HttpGet("{permissionId}")]
         public async Task<IActionResult> GetPermission(Guid permissionId)
         {
-            var permission = await _permissionService.GetPermissionById(permissionId);
+            var permission = await _permissionService.GetPermissionByIdAsync(permissionId);
 
             if (permission == null)
             {
@@ -57,7 +55,7 @@ namespace WebAPI.Controllers.V1
                 Description = createPermission.Description
             };
 
-            var created = await _permissionService.CreatePermission(permission);
+            var created = await _permissionService.CreatePermissionAsync(permission);
 
             if (!created)
                 return BadRequest();
@@ -87,7 +85,7 @@ namespace WebAPI.Controllers.V1
                 Description = request.Description
             };
 
-            var updated = await _permissionService.UpdatePermission(permission);
+            var updated = await _permissionService.UpdatePermissionAsync(permission);
 
             if (updated)
                 return Ok(permission);
@@ -108,7 +106,7 @@ namespace WebAPI.Controllers.V1
                 PermissionId = permissionId
             };
 
-            var created = await _userPermissionService.CreateUserPermission(userPermission);
+            var created = await _userPermissionService.CreateUserPermissionAsync(userPermission);
 
             if (!created)
                 return BadRequest();
@@ -120,7 +118,7 @@ namespace WebAPI.Controllers.V1
         [HttpDelete("{permissionId}")]
         public async Task<IActionResult> DeletePermission(Guid permissionId)
         {
-            var deleted = await _permissionService.DeletePermission(permissionId);
+            var deleted = await _permissionService.DeletePermissionAsync(permissionId);
             if (deleted)
             {
                 return NoContent();

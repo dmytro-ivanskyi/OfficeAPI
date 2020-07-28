@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebAPI.Contracts.V1.Requests;
 using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
@@ -28,14 +23,14 @@ namespace WebAPI.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetTask()
         {
-            return Ok(await _taskService.GetTasks());
+            return Ok(await _taskService.GetTasksAsync());
         }
 
         // GET: api/UserTask/5
         [HttpGet("{taskId}")]
         public async Task<IActionResult> GetTask(Guid taskId)
         {
-            return Ok(await _taskService.GetTaskById(taskId));
+            return Ok(await _taskService.GetTaskByIdAsync(taskId));
         }
 
         // POST: api/UserTask
@@ -48,7 +43,7 @@ namespace WebAPI.Controllers.V1
                 UserId = userTask.UserId
             };
 
-            var created = await _taskService.CreateTask(task);
+            var created = await _taskService.CreateTaskAsync(task);
             if (!created)
                 return BadRequest();
 
@@ -76,7 +71,7 @@ namespace WebAPI.Controllers.V1
                 UserId = request.UserId
             };
 
-            var updated = await _taskService.UpdateTask(task);
+            var updated = await _taskService.UpdateTaskAsync(task);
 
             if (updated)
                 return Ok(new UserTaskResponse
@@ -93,7 +88,7 @@ namespace WebAPI.Controllers.V1
         [HttpDelete("{taskId}")]
         public async Task<ActionResult> DeleteTask(Guid taskId)
         {
-            var deleted = await _taskService.DeleteTask(taskId);
+            var deleted = await _taskService.DeleteTaskAsync(taskId);
 
             if (deleted)
                 return NoContent();

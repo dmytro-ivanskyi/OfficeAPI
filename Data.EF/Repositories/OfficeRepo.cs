@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    class OfficeSQLRepo : IOfficeRepo
+    public class OfficeSQLRepo : IOfficeRepo
     {
         private readonly DataContext _dataContext;
 
-        OfficeSQLRepo(DataContext data)
+        public OfficeSQLRepo(DataContext data)
         {
             _dataContext = data;
         }
 
-        async Task<List<Office>> GetOfficesAsync()
+        public async Task<List<Office>> GetOfficesAsync()
         {
             return await _dataContext.Offices.ToListAsync();
         }
 
-        async Task<Office> GetOfficeByIdAsync(Guid officeId)
+        public async Task<Office> GetOfficeByIdAsync(Guid officeId)
         {
             return await _dataContext.Offices.SingleOrDefaultAsync(x => x.Id == officeId);
         }
 
-        async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
+        public async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
             var officeUsers = await _dataContext.Offices
                 .Include(of => of.Users)
@@ -34,7 +34,7 @@ namespace Data.EF.Repositories
             return officeUsers;
         }
 
-        async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
+        public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
         {
             _dataContext.Offices.Update(officeToUpdate);
             var updated = await _dataContext.SaveChangesAsync();
@@ -42,7 +42,7 @@ namespace Data.EF.Repositories
             return updated > 0;
         }
 
-        async Task<bool> DeleteOfficeAsync(Guid officeId)
+        public async Task<bool> DeleteOfficeAsync(Guid officeId)
         {
             var office = await GetOfficeByIdAsync(officeId);
 
@@ -56,7 +56,7 @@ namespace Data.EF.Repositories
             return deleted > 0;
         }
 
-        async Task<bool> CreateOfficeAsync(Office office)
+        public async Task<bool> CreateOfficeAsync(Office office)
         {
             await _dataContext.Offices.AddAsync(office);
 

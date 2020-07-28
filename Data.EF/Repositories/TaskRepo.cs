@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    class TaskRepo : ITaskRepo
+    public class TaskRepo : ITaskRepo
     {
         private readonly DataContext _dataContext;
 
-        TaskRepo(DataContext data)
+        public TaskRepo(DataContext data)
         {
             _dataContext = data;
         }
 
-        async Task<bool> CreateTaskAsync(UserTask task)
+        public async Task<bool> CreateTaskAsync(UserTask task)
         {
             await _dataContext.Tasks.AddAsync(task);
 
@@ -25,7 +25,7 @@ namespace Data.EF.Repositories
             return created > 0;
         }
 
-        async Task<bool> UpdateTaskAsync(UserTask taskToUpdate)
+        public async Task<bool> UpdateTaskAsync(UserTask taskToUpdate)
         {
             _dataContext.Tasks.Update(taskToUpdate);
 
@@ -34,7 +34,7 @@ namespace Data.EF.Repositories
             return updated > 0;
         }
 
-        async Task<bool> DeleteTaskAsync(Guid taskId)
+        public async Task<bool> DeleteTaskAsync(Guid taskId)
         {
             var task = await _dataContext.Tasks.SingleOrDefaultAsync(t => t.Id == taskId);
 
@@ -48,14 +48,14 @@ namespace Data.EF.Repositories
             return deleted > 0;
         }
 
-        async Task<UserTask> GetTaskByIdAsync(Guid taskId)
+        public async Task<UserTask> GetTaskByIdAsync(Guid taskId)
         {
             var task = await _dataContext.Tasks.SingleOrDefaultAsync(t => t.Id == taskId);
 
             return task;
         }
 
-        async Task<List<UserTask>> GetTasksAsync()
+        public async Task<List<UserTask>> GetTasksAsync()
         {
             return await _dataContext.Tasks.ToListAsync();
         }

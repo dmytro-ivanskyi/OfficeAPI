@@ -1,7 +1,4 @@
 ﻿using Data.EF.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
@@ -10,11 +7,11 @@ namespace Data.EF.Repositories
     {
         private readonly DataContext _dataContext;
 
-        UserPermissionRepo(DataContext data)
+        public UserPermissionRepo(DataContext data)
         {
             _dataContext = data;
         }
-        async Task<bool> CreateUserPermissionAsync(UserPermission userPermission)
+        public async Task<bool> CreateUserPermissionAsync(UserPermission userPermission)
         {
             await _dataContext.UserPermissions.AddAsync(userPermission);
 

@@ -10,17 +10,17 @@ namespace Data.EF.Repositories
     {
         private readonly DataContext _dataContext;
 
-        UserRepo(DataContext data)
+        public UserRepo(DataContext data)
         {
             _dataContext = data;
         }
 
-        async Task<List<User>> GetUsersAsync()
+        public async Task<List<User>> GetUsersAsync()
         {
             return await _dataContext.Users.ToListAsync();
         }
 
-        async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
             var user = await _dataContext.Users
                 .Include(u => u.Tasks)
@@ -31,7 +31,7 @@ namespace Data.EF.Repositories
             return user;
         }
 
-        async Task<bool> CreateUserAsync(User user)
+        public async Task<bool> CreateUserAsync(User user)
         {
             await _dataContext.Users.AddAsync(user);
 
@@ -40,7 +40,7 @@ namespace Data.EF.Repositories
             return created > 0;
         }
 
-        async Task<bool> UpdateUserAsync(User userToUpdate)
+        public async Task<bool> UpdateUserAsync(User userToUpdate)
         {
             _dataContext.Users.Update(userToUpdate);
 
@@ -49,7 +49,7 @@ namespace Data.EF.Repositories
             return updated > 0;
         }
 
-        async Task<bool> DeleteUserAsync(Guid userId)
+        public async Task<bool> DeleteUserAsync(Guid userId)
         {
             var user = await GetUserByIdAsync(userId);
 
