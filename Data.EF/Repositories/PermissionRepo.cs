@@ -1,4 +1,5 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

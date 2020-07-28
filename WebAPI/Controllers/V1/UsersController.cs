@@ -4,7 +4,6 @@ using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1;
 using WebAPI.Contracts.V1.Requests;
-using WebAPI.Contracts.V1.Responses;
 
 namespace WebAPI.Controllers.V1
 {
@@ -37,59 +36,59 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        // POST api/<UsersController>
-        [HttpPost(ApiRoutes.Users.Create)]
-        public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
-        {
-            var user = new User
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Age = request.Age,
-                OfficeId = request.OfficeId
-            };
+        //// POST api/<UsersController>
+        //[HttpPost(ApiRoutes.Users.Create)]
+        //public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
+        //{
+        //    var user = new User
+        //    {
+        //        FirstName = request.FirstName,
+        //        LastName = request.LastName,
+        //        Age = request.Age,
+        //        OfficeId = request.OfficeId
+        //    };
 
-            var created = await _userService.CreateUserAsync(user);
+        //    var created = await _userService.CreateUserAsync(user);
 
-            if (!created)
-                return BadRequest();
+        //    if (!created)
+        //        return BadRequest();
 
-            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var location = baseUri + "/[controller]" + user.Id.ToString();
+        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+        //    var location = baseUri + "/[controller]" + user.Id.ToString();
 
-            var response = new UserResponse
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                OfficeId = user.OfficeId
-            };
+        //    var response = new UserResponse
+        //    {
+        //        Id = user.Id,
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        Age = user.Age,
+        //        OfficeId = user.OfficeId
+        //    };
 
-            return Created(location, response);
-        }
+        //    return Created(location, response);
+        //}
 
 
-        // PUT api/<UsersController>/5
-        [HttpPut(ApiRoutes.Users.Update)]
-        public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
-        {
-            var user = new User
-            {
-                Id = userId,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Age = request.Age,
-                OfficeId = request.OfficeId
-            };
+        //// PUT api/<UsersController>/5
+        //[HttpPut(ApiRoutes.Users.Update)]
+        //public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
+        //{
+        //    var user = new User
+        //    {
+        //        Id = userId,
+        //        FirstName = request.FirstName,
+        //        LastName = request.LastName,
+        //        Age = request.Age,
+        //        OfficeId = request.OfficeId
+        //    };
 
-            var updated = await _userService.UpdateUserAsync(user);
+        //    var updated = await _userService.UpdateUserAsync(user);
 
-            if (updated)
-                return Ok(user);
+        //    if (updated)
+        //        return Ok(user);
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
 
 
         // DELETE api/<UsersController>/5

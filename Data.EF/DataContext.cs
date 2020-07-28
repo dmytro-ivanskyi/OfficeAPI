@@ -1,4 +1,4 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF

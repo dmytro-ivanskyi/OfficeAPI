@@ -1,6 +1,6 @@
 ﻿using Data.Abstraction.Interfaces.RepoInterfaces;
 using Data.Abstraction.Interfaces.ServiceInterfaces;
-using Data.EF.Models;
+using Data.Abstraction.Models;
 using System.Threading.Tasks;
 
 namespace Data.Abstraction.Services

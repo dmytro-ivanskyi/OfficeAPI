@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.EF.Models
+namespace Data.Abstraction.Models
 {
     public class User
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.EF.Models
+namespace Data.Abstraction.Models
 {
     public class UserTask
     {

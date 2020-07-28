@@ -1,9 +1,10 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Models;
 using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    class UserPermissionRepo : IUserPermissionRepo
+    public class UserPermissionRepo : IUserPermissionRepo
     {
         private readonly DataContext _dataContext;
 

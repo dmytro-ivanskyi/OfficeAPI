@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.EF.Models
+namespace Data.Abstraction.Models
 {
-    public class Office
+    public class Permission
     {
         public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        public List<User> Users { get; set; }
+        public string Description { get; set; }
+
+        public List<UserPermission> Permissions { get; set; }
     }
 }

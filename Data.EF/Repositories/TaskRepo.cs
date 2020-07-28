@@ -1,8 +1,8 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.EF.Repositories

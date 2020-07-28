@@ -4,7 +4,6 @@ using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1.Requests;
-using WebAPI.Contracts.V1.Responses;
 
 namespace WebAPI.Controllers.V1
 {
@@ -45,74 +44,74 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        // POST: api/Permissions
-        [HttpPost]
-        public async Task<IActionResult> PostPermission([FromBody] CreatePermissionRequest createPermission)
-        {
-            var permission = new Permission
-            {
-                Name = createPermission.Name,
-                Description = createPermission.Description
-            };
+        //// POST: api/Permissions
+        //[HttpPost]
+        //public async Task<IActionResult> PostPermission([FromBody] CreatePermissionRequest createPermission)
+        //{
+        //    var permission = new Permission
+        //    {
+        //        Name = createPermission.Name,
+        //        Description = createPermission.Description
+        //    };
 
-            var created = await _permissionService.CreatePermissionAsync(permission);
+        //    var created = await _permissionService.CreatePermissionAsync(permission);
 
-            if (!created)
-                return BadRequest();
+        //    if (!created)
+        //        return BadRequest();
 
-            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var location = baseUri + "/[controller]" + permission.Id.ToString();
+        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+        //    var location = baseUri + "/[controller]" + permission.Id.ToString();
 
-            var response = new PermissionResponse
-            {
-                Id = permission.Id,
-                Name = permission.Name,
-                Description = permission.Description
-            };
+        //    var response = new PermissionResponse
+        //    {
+        //        Id = permission.Id,
+        //        Name = permission.Name,
+        //        Description = permission.Description
+        //    };
 
-            return Created(location, response);
-        }
+        //    return Created(location, response);
+        //}
 
 
-        // PUT: api/Permissions/5
-        [HttpPut("{permissionId}")]
-        public async Task<IActionResult> PutPermission([FromRoute] Guid permissionId, [FromBody] UpdatePermissionRequest request)
-        {
-            var permission = new Permission
-            {
-                Id = permissionId,
-                Name = request.Name,
-                Description = request.Description
-            };
+        //// PUT: api/Permissions/5
+        //[HttpPut("{permissionId}")]
+        //public async Task<IActionResult> PutPermission([FromRoute] Guid permissionId, [FromBody] UpdatePermissionRequest request)
+        //{
+        //    var permission = new Permission
+        //    {
+        //        Id = permissionId,
+        //        Name = request.Name,
+        //        Description = request.Description
+        //    };
 
-            var updated = await _permissionService.UpdatePermissionAsync(permission);
+        //    var updated = await _permissionService.UpdatePermissionAsync(permission);
 
-            if (updated)
-                return Ok(permission);
+        //    if (updated)
+        //        return Ok(permission);
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
 
-        /// <summary>
-        /// Assigns permission to user
-        /// </summary>
-        // PUT: api/Permissions/5/3
-        [HttpPost("{permissionId}/{userId}")]
-        public async Task<IActionResult> PutPermission([FromRoute] Guid permissionId, [FromRoute] Guid userId)
-        {
-            var userPermission = new UserPermission
-            {
-                UserId = userId,
-                PermissionId = permissionId
-            };
+        ///// <summary>
+        ///// Assigns permission to user
+        ///// </summary>
+        //// PUT: api/Permissions/5/3
+        //[HttpPost("{permissionId}/{userId}")]
+        //public async Task<IActionResult> PutPermission([FromRoute] Guid permissionId, [FromRoute] Guid userId)
+        //{
+        //    var userPermission = new UserPermission
+        //    {
+        //        UserId = userId,
+        //        PermissionId = permissionId
+        //    };
 
-            var created = await _userPermissionService.CreateUserPermissionAsync(userPermission);
+        //    var created = await _userPermissionService.CreateUserPermissionAsync(userPermission);
 
-            if (!created)
-                return BadRequest();
+        //    if (!created)
+        //        return BadRequest();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // DELETE: api/Permissions/5
         [HttpDelete("{permissionId}")]

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using WebAPI.Data.Entities;
 
 namespace WebAPI.Contracts.V1.Requests
 {
@@ -11,6 +9,5 @@ namespace WebAPI.Contracts.V1.Requests
         public int Age { get; set; }
 
         public Guid OfficeId { get; set; }
-        //public List<UserTask> Tasks { get; set; }
     }
 }

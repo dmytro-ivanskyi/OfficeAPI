@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using WebAPI.Data.Entities;
 
 namespace WebAPI.Contracts.V1.Requests
 {

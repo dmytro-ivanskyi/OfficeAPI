@@ -1,17 +1,17 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    public class OfficeSQLRepo : IOfficeRepo
+    public class OfficeRepo : IOfficeRepo
     {
         private readonly DataContext _dataContext;
 
-        public OfficeSQLRepo(DataContext data)
+        public OfficeRepo(DataContext data)
         {
             _dataContext = data;
         }

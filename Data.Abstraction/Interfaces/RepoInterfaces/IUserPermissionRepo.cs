@@ -1,4 +1,4 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Models;
 using System.Threading.Tasks;
 
 namespace Data.Abstraction.Interfaces.RepoInterfaces

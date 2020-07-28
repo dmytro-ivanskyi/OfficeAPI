@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Data.EF.Models
+namespace Data.Abstraction.Models
 {
     public class UserPermission
     {

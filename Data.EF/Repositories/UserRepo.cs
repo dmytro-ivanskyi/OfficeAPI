@@ -1,4 +1,5 @@
-﻿using Data.EF.Models;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.EF.Repositories
 {
-    class UserRepo : IUserRepo
+    public class UserRepo : IUserRepo
     {
         private readonly DataContext _dataContext;
 

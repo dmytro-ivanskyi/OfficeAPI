@@ -4,7 +4,6 @@ using Data.Abstraction.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Contracts.V1.Requests;
-using WebAPI.Contracts.V1.Responses;
 
 namespace WebAPI.Controllers.V1
 {
@@ -33,67 +32,67 @@ namespace WebAPI.Controllers.V1
             return Ok(await _taskService.GetTaskByIdAsync(taskId));
         }
 
-        // POST: api/UserTask
-        [HttpPost]
-        public async Task<ActionResult> PostTask(CreateTaskRequest userTask)
-        {
-            var task = new UserTask
-            {
-                Description = userTask.Description,
-                UserId = userTask.UserId
-            };
+        //// POST: api/UserTask
+        //[HttpPost]
+        //public async Task<ActionResult> PostTask(CreateTaskRequest userTask)
+        //{
+        //    var task = new UserTask
+        //    {
+        //        Description = userTask.Description,
+        //        UserId = userTask.UserId
+        //    };
 
-            var created = await _taskService.CreateTaskAsync(task);
-            if (!created)
-                return BadRequest();
+        //    var created = await _taskService.CreateTaskAsync(task);
+        //    if (!created)
+        //        return BadRequest();
 
-            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var location = baseUri + "/" + task.Id;
+        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+        //    var location = baseUri + "/" + task.Id;
 
-            var response = new UserTaskResponse
-            {
-                Id = task.Id,
-                Description = task.Description,
-                UserId = task.UserId
-            };
+        //    var response = new UserTaskResponse
+        //    {
+        //        Id = task.Id,
+        //        Description = task.Description,
+        //        UserId = task.UserId
+        //    };
 
-            return Created(location, response);
-        }
+        //    return Created(location, response);
+        //}
 
-        // PUT: api/UserTask/5
-        [HttpPut("{taskId}")]
-        public async Task<IActionResult> PutTask(Guid taskId, [FromBody] UpdateTaskRequest request)
-        {
-            var task = new UserTask
-            {
-                Id = taskId,
-                Description = request.Description,
-                UserId = request.UserId
-            };
+        //// PUT: api/UserTask/5
+        //[HttpPut("{taskId}")]
+        //public async Task<IActionResult> PutTask(Guid taskId, [FromBody] UpdateTaskRequest request)
+        //{
+        //    var task = new UserTask
+        //    {
+        //        Id = taskId,
+        //        Description = request.Description,
+        //        UserId = request.UserId
+        //    };
 
-            var updated = await _taskService.UpdateTaskAsync(task);
+        //    var updated = await _taskService.UpdateTaskAsync(task);
 
-            if (updated)
-                return Ok(new UserTaskResponse
-                {
-                    Id = task.Id,
-                    Description = task.Description,
-                    UserId = task.UserId
-                });
+        //    if (updated)
+        //        return Ok(new UserTaskResponse
+        //        {
+        //            Id = task.Id,
+        //            Description = task.Description,
+        //            UserId = task.UserId
+        //        });
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
 
-        // DELETE: api/UserTask/5
-        [HttpDelete("{taskId}")]
-        public async Task<ActionResult> DeleteTask(Guid taskId)
-        {
-            var deleted = await _taskService.DeleteTaskAsync(taskId);
+        //// DELETE: api/UserTask/5
+        //[HttpDelete("{taskId}")]
+        //public async Task<ActionResult> DeleteTask(Guid taskId)
+        //{
+        //    var deleted = await _taskService.DeleteTaskAsync(taskId);
 
-            if (deleted)
-                return NoContent();
+        //    if (deleted)
+        //        return NoContent();
 
-            return NotFound();
-        }
+        //    return NotFound();
+        //}
     }
 }

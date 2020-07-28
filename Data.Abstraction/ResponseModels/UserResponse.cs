@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAPI.Contracts.V1.Responses
+namespace Data.Abstraction.ResponseModels
 {
     public class UserResponse
     {

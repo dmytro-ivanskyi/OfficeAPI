@@ -1,13 +1,11 @@
 ﻿using System;
 
-namespace WebAPI.Contracts.V1.Responses
+namespace Data.Abstraction.ResponseModels
 {
-    public class UserTaskResponse
+    public class PermissionResponse
     {
         public Guid Id { get; set; }
-
+        public string Name { get; set; }
         public string Description { get; set; }
-
-        public Guid UserId { get; set; }
     }
 }

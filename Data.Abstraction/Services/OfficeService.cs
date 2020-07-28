@@ -1,6 +1,8 @@
-﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+﻿using AutoMapper;
+using Data.Abstraction.Interfaces.RepoInterfaces;
 using Data.Abstraction.Interfaces.ServiceInterfaces;
-using Data.EF.Models;
+using Data.Abstraction.Models;
+using Data.Abstraction.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,25 +12,39 @@ namespace Data.Abstraction.Services
     public class OfficeService : IOfficeService
     {
         private readonly IOfficeRepo _officeRepo;
+        private readonly IMapper _mapper;
 
-        public OfficeService(IOfficeRepo officeRepo)
+        public OfficeService(IOfficeRepo officeRepo, IMapper mapper)
         {
             _officeRepo = officeRepo;
+            _mapper = mapper;
         }
 
-        public async Task<List<Office>> GetOfficesAsync()
+        public async Task<List<OfficeResponse>> GetOfficesAsync()
         {
-            return await _officeRepo.GetOfficesAsync();
+            var offices = await _officeRepo.GetOfficesAsync();
+
+            List<OfficeResponse> officeResponseList = _mapper.Map<List<OfficeResponse>>(offices);
+
+            return officeResponseList;
         }
 
-        public async Task<Office> GetOfficeByIdAsync(Guid officeId)
+        public async Task<OfficeResponse> GetOfficeByIdAsync(Guid officeId)
         { 
-            return await _officeRepo.GetOfficeByIdAsync(officeId);
+            var office = await _officeRepo.GetOfficeByIdAsync(officeId);
+
+            OfficeResponse officeResponse = _mapper.Map<OfficeResponse>(office);
+
+            return officeResponse;
         }
 
-        public async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
+        public async Task<OfficeResponse> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
-            return await _officeRepo.GetOfficeByIdWithUsersAsync(officeId);
+            var office = await _officeRepo.GetOfficeByIdWithUsersAsync(officeId);
+
+            OfficeResponse officeResponse = _mapper.Map<OfficeResponse>(office);
+
+            return officeResponse;
         }
 
         public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
