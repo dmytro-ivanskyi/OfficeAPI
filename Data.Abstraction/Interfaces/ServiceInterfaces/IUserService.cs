@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.ServiceInterfaces
+namespace Data.Abstraction.Interfaces.ServiceInterfaces
 {
     public interface IUserService
     {
-        Task<List<User>> GetUsers();
+        Task<List<User>> GetUsersAsync();
 
-        Task<User> GetUserById(Guid userId);
+        Task<User> GetUserByIdAsync(Guid userId);
 
-        Task<bool> UpdateUser(User userToUpdate);
+        Task<bool> UpdateUserAsync(User userToUpdate);
 
-        Task<bool> DeleteUser(Guid userId);
+        Task<bool> DeleteUserAsync(Guid userId);
 
-        Task<bool> CreateUser(User user);
+        Task<bool> CreateUserAsync(User user);
     }
 }

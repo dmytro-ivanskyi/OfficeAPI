@@ -1,45 +1,44 @@
-﻿using System;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
+using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.RepoInterfaces;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
-namespace WebAPI.Services
+namespace Data.Abstraction.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserSQLRepo _userSQLRepo;
+        private readonly IUserRepo _userRepo;
 
-        public UserService(IUserSQLRepo userSQLRepo)
+        public UserService(IUserRepo userRepo)
         {
-            _userSQLRepo = userSQLRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<bool> CreateUser(User user)
+        public async Task<bool> CreateUserAsync(User user)
         {
-            return await _userSQLRepo.CreateUser(user);
+            return await _userRepo.CreateUserAsync(user);
         }
 
-        public async Task<bool> DeleteUser(Guid userId)
+        public async Task<bool> DeleteUserAsync(Guid userId)
         {
-            return await _userSQLRepo.DeleteUser(userId);
-        }  
-
-        public async Task<User> GetUserById(Guid userId)
-        {
-            return await _userSQLRepo.GetUserById(userId);
+            return await _userRepo.DeleteUserAsync(userId);
         }
 
-        public async Task<List<UserResponse>> GetUsers()
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
-            return await _userSQLRepo.GetUsers();
+            return await _userRepo.GetUserByIdAsync(userId);
         }
 
-        public async Task<bool> UpdateUser(User userToUpdate)
+        public async Task<List<User>> GetUsersAsync()
         {
-            return await _userSQLRepo.UpdateUser(userToUpdate);
+            return await _userRepo.GetUsersAsync();
+        }
+
+        public async Task<bool> UpdateUserAsync(User userToUpdate)
+        {
+            return await _userRepo.UpdateUserAsync(userToUpdate);
         }
     }
 }

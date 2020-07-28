@@ -1,21 +1,22 @@
-﻿using System;
+﻿using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.RepoInterfaces
-{ 
+namespace Data.Abstraction.Interfaces.RepoInterfaces
+{
     public interface IOfficeRepo
     {
-        Task<List<Office>> GetOffices();
+        Task<List<Office>> GetOfficesAsync();
 
-        Task<Office> GetOfficeById(Guid officeId);
+        Task<Office> GetOfficeByIdAsync(Guid officeId);
 
-        Task<Office> GetOfficeByIdWithUsers(Guid officeId);
+        Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId);
 
-        Task<bool> UpdateOffice(Office officeToUpdate);
+        Task<bool> UpdateOfficeAsync(Office officeToUpdate);
 
-        Task<bool> DeleteOffice(Guid officeId);
+        Task<bool> DeleteOfficeAsync(Guid officeId);
 
-        Task<bool> CreateOffice(Office office);
+        Task<bool> CreateOfficeAsync(Office office);
     }
 }

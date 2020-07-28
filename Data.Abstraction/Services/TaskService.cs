@@ -1,46 +1,44 @@
-﻿using System;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
+using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Requests;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.RepoInterfaces;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
-namespace WebAPI.Services
+namespace Data.Abstraction.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskSQLRepo _taskSQLRepo;
+        private readonly ITaskRepo _taskRepo;
 
-        public TaskService(ITaskSQLRepo repo)
+        public TaskService(ITaskRepo repo)
         {
-            _taskSQLRepo = repo;
+            _taskRepo = repo;
         }
 
-        public async Task<bool> CreateTask(UserTask task)
+        public async Task<bool> CreateTaskAsync(UserTask task)
         {
-            return await _taskSQLRepo.CreateTask(task);
+            return await _taskRepo.CreateTaskAsync(task);
         }
 
-        public async Task<bool> DeleteTask(Guid taskId)
+        public async Task<bool> DeleteTaskAsync(Guid taskId)
         {
-            return await _taskSQLRepo.DeleteTask(taskId);
+            return await _taskRepo.DeleteTaskAsync(taskId);
         }
 
-        public async Task<UserTaskResponse> GetTaskById(Guid taskId)
+        public async Task<UserTask> GetTaskByIdAsync(Guid taskId)
         {
-            return await _taskSQLRepo.GetTaskById(taskId);
+            return await _taskRepo.GetTaskByIdAsync(taskId);
         }
 
-        public async Task<List<UserTaskResponse>> GetTasks()
+        public async Task<List<UserTask>> GetTasksAsync()
         {
-            return await _taskSQLRepo.GetTasks();
+            return await _taskRepo.GetTasksAsync();
         }
 
-        public async Task<bool> UpdateTask(UserTask taskToUpdate)
+        public async Task<bool> UpdateTaskAsync(UserTask taskToUpdate)
         {
-            return await _taskSQLRepo.UpdateTask(taskToUpdate);
+            return await _taskRepo.UpdateTaskAsync(taskToUpdate);
         }
     }
 }

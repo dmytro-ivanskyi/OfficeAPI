@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using Data.EF.Models;
+using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.RepoInterfaces
+namespace Data.Abstraction.Interfaces.RepoInterfaces
 {
     public interface IUserPermissionRepo
     {
-        Task<bool> CreateUserPermission(UserPermission userPermission);
+        Task<bool> CreateUserPermissionAsync(UserPermission userPermission);
     }
 }

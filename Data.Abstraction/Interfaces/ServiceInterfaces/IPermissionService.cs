@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.ServiceInterfaces
+namespace Data.Abstraction.Interfaces.ServiceInterfaces
 {
     public interface IPermissionService
     {
-        Task<List<Permission>> GetPermissions();
+        Task<List<Permission>> GetPermissionsAsync();
 
-        Task<Permission> GetPermissionById(Guid permissionId);
+        Task<Permission> GetPermissionByIdAsync(Guid permissionId);
 
-        Task<bool> CreatePermission(Permission permission);
+        Task<bool> CreatePermissionAsync(Permission permission);
 
-        Task<bool> UpdatePermission(Permission permissionToUpdate);
+        Task<bool> UpdatePermissionAsync(Permission permissionToUpdate);
 
-        Task<bool> DeletePermission(Guid permissionId);
+        Task<bool> DeletePermissionAsync(Guid permissionId);
     }
 }

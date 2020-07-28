@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using Data.EF.Models;
+using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.ServiceInterfaces
+namespace Data.Abstraction.Interfaces.ServiceInterfaces
 {
     public interface IUserPermissionService
     {
-        Task<bool> CreateUserPermission(UserPermission userPermission);
+        Task<bool> CreateUserPermissionAsync(UserPermission userPermission);
     }
 }

@@ -1,51 +1,50 @@
-﻿using System;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
+using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.RepoInterfaces;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
-namespace WebAPI.Services
+namespace Data.Abstraction.Services
 {
     public class OfficeService : IOfficeService
     {
-        private readonly IOfficeSQLRepo _officeSQLRepo;
+        private readonly IOfficeRepo _officeRepo;
 
-        public OfficeService(IOfficeSQLRepo officeSQLRepo)
+        public OfficeService(IOfficeRepo officeRepo)
         {
-            _officeSQLRepo = officeSQLRepo;
+            _officeRepo = officeRepo;
         }
 
-        public async Task<List<OfficeResponse>> GetOffices()
+        public async Task<List<Office>> GetOfficesAsync()
         {
-            return await _officeSQLRepo.GetOffices();
+            return await _officeRepo.GetOfficesAsync();
         }
 
-        public async Task<Office> GetOfficeById(Guid officeId)
-        {
-            return await _officeSQLRepo.GetOfficeById(officeId);
+        public async Task<Office> GetOfficeByIdAsync(Guid officeId)
+        { 
+            return await _officeRepo.GetOfficeByIdAsync(officeId);
         }
 
-        public async Task<Office> GetOfficeByIdWithUsers(Guid officeId)
+        public async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
-            return await _officeSQLRepo.GetOfficeByIdWithUsers(officeId);
+            return await _officeRepo.GetOfficeByIdWithUsersAsync(officeId);
         }
 
-        public async Task<bool> UpdateOffice(Office officeToUpdate)
+        public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
         {
 
-            return await _officeSQLRepo.UpdateOffice(officeToUpdate);
+            return await _officeRepo.UpdateOfficeAsync(officeToUpdate);
         }
 
-        public async Task<bool> DeleteOffice(Guid officeId)
+        public async Task<bool> DeleteOfficeAsync(Guid officeId)
         {
-            return await _officeSQLRepo.DeleteOffice(officeId);
+            return await _officeRepo.DeleteOfficeAsync(officeId);
         }
 
-        public async Task<bool> CreateOffice(Office office)
+        public async Task<bool> CreateOfficeAsync(Office office)
         {
-            return await _officeSQLRepo.CreateOffice(office);
+            return await _officeRepo.CreateOfficeAsync(office);
         }
     }
 }

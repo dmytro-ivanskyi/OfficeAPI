@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Data.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebAPI.Services.Interfaces.RepoInterfaces
+namespace Data.Abstraction.Interfaces.RepoInterfaces
 {
     public interface ITaskRepo
     {
-        Task<List<UserTask>> GetTasks();
+        Task<List<UserTask>> GetTasksAsync();
 
-        Task<UserTask> GetTaskById(Guid taskId);
+        Task<UserTask> GetTaskByIdAsync(Guid taskId);
 
-        Task<bool> CreateTask(UserTask task);
+        Task<bool> CreateTaskAsync(UserTask task);
 
-        Task<bool> UpdateTask(UserTask taskToUpdate);
+        Task<bool> UpdateTaskAsync(UserTask taskToUpdate);
 
-        Task<bool> DeleteTask(Guid taskId);
+        Task<bool> DeleteTaskAsync(Guid taskId);
     }
 }

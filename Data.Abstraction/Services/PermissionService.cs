@@ -1,45 +1,44 @@
-﻿using System;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
+using Data.EF.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Contracts.V1.Responses;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.RepoInterfaces;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
 
-namespace WebAPI.Services
+namespace Data.Abstraction.Services
 {
     public class PermissionService : IPermissionService
     {
-        private readonly IPermissionSQLRepo _permissionSQLRepo;
+        private readonly IPermissionRepo _permissionRepo;
 
-        public PermissionService(IPermissionSQLRepo repo)
+        public PermissionService(IPermissionRepo repo)
         {
-            _permissionSQLRepo = repo;
-        }
-        public async Task<List<PermissionResponse>> GetPermissions()
-        {
-            return await _permissionSQLRepo.GetPermissions();
+            _permissionRepo = repo;
         }
 
-        public async Task<PermissionResponse> GetPermissionById(Guid permissionId)
+        public async Task<List<Permission>> GetPermissionsAsync()
         {
-            return await _permissionSQLRepo.GetPermissionById(permissionId);
+            return await _permissionRepo.GetPermissionsAsync();
         }
 
-        public async Task<bool> CreatePermission(Permission permission)
+        public async Task<Permission> GetPermissionByIdAsync(Guid permissionId)
         {
-            return await _permissionSQLRepo.CreatePermission(permission);
+            return await _permissionRepo.GetPermissionByIdAsync(permissionId);
         }
 
-        public async Task<bool> UpdatePermission(Permission permissionToUpdate)
+        public async Task<bool> CreatePermissionAsync(Permission permission)
         {
-            return await _permissionSQLRepo.UpdatePermission(permissionToUpdate);
+            return await _permissionRepo.CreatePermissionAsync(permission);
         }
 
-        public async Task<bool> DeletePermission(Guid permissionId)
+        public async Task<bool> UpdatePermissionAsync(Permission permissionToUpdate)
         {
-            return await _permissionSQLRepo.DeletePermission(permissionId);
+            return await _permissionRepo.UpdatePermissionAsync(permissionToUpdate);
+        }
+
+        public async Task<bool> DeletePermissionAsync(Guid permissionId)
+        {
+            return await _permissionRepo.DeletePermissionAsync(permissionId);
         }
     }
 }

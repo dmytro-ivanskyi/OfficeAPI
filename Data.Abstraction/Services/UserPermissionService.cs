@@ -1,22 +1,22 @@
-﻿using System.Threading.Tasks;
-using WebAPI.Data.Entities;
-using WebAPI.Services.Interfaces.RepoInterfaces;
-using WebAPI.Services.Interfaces.ServiceInterfaces;
+﻿using Data.Abstraction.Interfaces.RepoInterfaces;
+using Data.Abstraction.Interfaces.ServiceInterfaces;
+using Data.EF.Models;
+using System.Threading.Tasks;
 
-namespace WebAPI.Services
+namespace Data.Abstraction.Services
 {
     public class UserPermissionService : IUserPermissionService
     {
-        private readonly IUserPermissionSQLRepo _userPermissionSQLRepo;
+        private readonly IUserPermissionRepo _userPermissionRepo;
 
-        public UserPermissionService(IUserPermissionSQLRepo userPermission)
+        public UserPermissionService(IUserPermissionRepo userPermission)
         {
-            _userPermissionSQLRepo = userPermission;
+            _userPermissionRepo = userPermission;
         }
 
-        public async Task<bool> CreateUserPermission(UserPermission userPermission)
+        public async Task<bool> CreateUserPermissionAsync(UserPermission userPermission)
         {
-            return await _userPermissionSQLRepo.CreateUserPermission(userPermission);
+            return await _userPermissionRepo.CreateUserPermissionAsync(userPermission);
         }
     }
 }

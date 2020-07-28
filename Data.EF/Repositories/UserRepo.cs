@@ -1,5 +1,4 @@
-﻿using Data.Abstraction.Interfaces.RepoInterfaces;
-using Data.EF.Models;
+﻿using Data.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,17 +10,17 @@ namespace Data.EF.Repositories
     {
         private readonly DataContext _dataContext;
 
-        public UserRepo(DataContext data)
+        UserRepo(DataContext data)
         {
             _dataContext = data;
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        async Task<List<User>> GetUsersAsync()
         {
             return await _dataContext.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        async Task<User> GetUserByIdAsync(Guid userId)
         {
             var user = await _dataContext.Users
                 .Include(u => u.Tasks)
@@ -31,7 +30,8 @@ namespace Data.EF.Repositories
 
             return user;
         }
-        public async Task<bool> CreateUserAsync(User user)
+
+        async Task<bool> CreateUserAsync(User user)
         {
             await _dataContext.Users.AddAsync(user);
 
@@ -40,7 +40,7 @@ namespace Data.EF.Repositories
             return created > 0;
         }
 
-        public async Task<bool> UpdateUserAsync(User userToUpdate)
+        async Task<bool> UpdateUserAsync(User userToUpdate)
         {
             _dataContext.Users.Update(userToUpdate);
 
@@ -49,7 +49,7 @@ namespace Data.EF.Repositories
             return updated > 0;
         }
 
-        public async Task<bool> DeleteUserAsync(Guid userId)
+        async Task<bool> DeleteUserAsync(Guid userId)
         {
             var user = await GetUserByIdAsync(userId);
 
