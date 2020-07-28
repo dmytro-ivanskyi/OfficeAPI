@@ -4,8 +4,6 @@ using Data.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Service.Abstraction.Mappers;
-using Service.Abstraction.Mappers.MapperInterfaces;
 using Service.Abstraction.ServiceInterfaces;
 using Service.Services;
 
@@ -22,7 +20,7 @@ namespace WebAPI.Installers
 
             services.AddScoped<IOfficeService, OfficeService>();
             services.AddScoped<IOfficeRepo, OfficeRepo>();
-            services.AddScoped<IOfficeMapper, OfficeMapper>();
+            //services.AddScoped<IOfficeMapper, OfficeMapper>();
 
             //services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IUserRepo, UserRepo>();

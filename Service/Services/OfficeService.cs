@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Data.Abstraction.Models;
 using Data.Abstraction.RepoInterfaces;
-using Service.Abstraction.Mappers.MapperInterfaces;
 using Service.Abstraction.ResponseModels;
 using Service.Abstraction.ServiceInterfaces;
 
@@ -12,33 +12,33 @@ namespace Service.Services
     public class OfficeService : IOfficeService
     {
         private readonly IOfficeRepo _officeRepo;
-        private readonly IOfficeMapper _mapper;
+        private readonly IMapper _mapper ;
 
-        public OfficeService(IOfficeRepo officeRepo)
+        public OfficeService(IOfficeRepo officeRepo, IMapper mapper)
         {
             _officeRepo = officeRepo;
+            _mapper = mapper;
         }
 
         public async Task<List<OfficeResponse>> GetOfficesAsync()
         {
             var offices = await _officeRepo.GetOfficesAsync();
 
-            return MapOfficeList(offices);
+            return _mapper.Map<List<OfficeResponse>>(offices);
         }
 
         public async Task<OfficeResponse> GetOfficeByIdAsync(Guid officeId)
         { 
             var office = await _officeRepo.GetOfficeByIdAsync(officeId);
 
-
-            return _mapper.MapOffice(office);
+            return _mapper.Map<OfficeResponse>(office);
         }
 
         public async Task<OfficeResponse> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
             var office = await _officeRepo.GetOfficeByIdWithUsersAsync(officeId);
 
-            return _mapper.MapOffice(office);
+            return _mapper.Map<OfficeResponse>(office);
         }
 
         public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
