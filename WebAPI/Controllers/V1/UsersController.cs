@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ServiceInterfaces;
 using WebAPI.Contracts.V1;
 
@@ -35,59 +36,35 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        //// POST api/<UsersController>
-        //[HttpPost(ApiRoutes.Users.Create)]
-        //public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
-        //{
-        //    var user = new User
-        //    {
-        //        FirstName = request.FirstName,
-        //        LastName = request.LastName,
-        //        Age = request.Age,
-        //        OfficeId = request.OfficeId
-        //    };
+        // POST api/<UsersController>
+        [HttpPost(ApiRoutes.Users.Create)]
+        public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
+        {
+            var created = await _userService.CreateUserAsync(request);
 
-        //    var created = await _userService.CreateUserAsync(user);
+            if (created == null)
+                return BadRequest();
 
-        //    if (!created)
-        //        return BadRequest();
-
-        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-        //    var location = baseUri + "/[controller]" + user.Id.ToString();
-
-        //    var response = new UserResponse
-        //    {
-        //        Id = user.Id,
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName,
-        //        Age = user.Age,
-        //        OfficeId = user.OfficeId
-        //    };
-
-        //    return Created(location, response);
-        //}
+            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            var location = baseUri + "/[controller]" + created.Id.ToString();
 
 
-        //// PUT api/<UsersController>/5
-        //[HttpPut(ApiRoutes.Users.Update)]
-        //public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
-        //{
-        //    var user = new User
-        //    {
-        //        Id = userId,
-        //        FirstName = request.FirstName,
-        //        LastName = request.LastName,
-        //        Age = request.Age,
-        //        OfficeId = request.OfficeId
-        //    };
+            return Created(location, created);
+        }
 
-        //    var updated = await _userService.UpdateUserAsync(user);
 
-        //    if (updated)
-        //        return Ok(user);
+        // PUT api/<UsersController>/5
+        [HttpPut(ApiRoutes.Users.Update)]
+        public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
+        {
 
-        //    return NotFound();
-        //}
+            var updatedUser = await _userService.UpdateUserAsync(userId, request);
+
+            if (updatedUser != null)
+                return Ok(updatedUser);
+
+            return NotFound();
+        }
 
 
         // DELETE api/<UsersController>/5

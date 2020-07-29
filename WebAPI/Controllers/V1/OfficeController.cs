@@ -80,16 +80,10 @@ namespace WebAPI.Controllers.V1
         [HttpPut(ApiRoutes.Offices.Update)]
         public async Task<IActionResult> Update([FromRoute] Guid officeId, [FromBody] UpdateOfficeRequest request)
         {
-            var office = new Office
-            {
-                Id = officeId,
-                Name = request.Name
-            };
+            var updatedOffice = await _officeService.UpdateOfficeAsync(officeId, request);
 
-            var officeUpdated = await _officeService.UpdateOfficeAsync(office);
-
-            if (officeUpdated != null)
-                return Ok(officeUpdated);
+            if (updatedOffice != null)
+                return Ok(updatedOffice);
 
             return NotFound();
         }

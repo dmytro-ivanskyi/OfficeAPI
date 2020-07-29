@@ -35,21 +35,24 @@ namespace Service.Services
             return _mapper.Map<OfficeResponse>(office);
         }
 
-        public async Task<OfficeResponse> GetOfficeByIdWithUsersAsync(Guid officeId)
+        public async Task<OfficeWithUsersResponse> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
             var office = await _officeRepo.GetOfficeByIdWithUsersAsync(officeId);
 
-            return _mapper.Map<OfficeResponse>(office);
+            return _mapper.Map<OfficeWithUsersResponse>(office);
         }
 
-        public async Task<OfficeResponse> UpdateOfficeAsync(Office officeToUpdate)
+        public async Task<OfficeResponse> UpdateOfficeAsync(Guid officeId, UpdateOfficeRequest officeToUpdate)
         {
-            var updated = await _officeRepo.UpdateOfficeAsync(officeToUpdate);
+            var updatedOffice = _mapper.Map<Office>(officeToUpdate);
+            updatedOffice.Id = officeId;
+
+            var updated = await _officeRepo.UpdateOfficeAsync(updatedOffice);
 
             if (!updated)
                 return null;
 
-            return await GetOfficeByIdAsync(officeToUpdate.Id);
+            return await GetOfficeByIdAsync(updatedOffice.Id);
         }
 
         public async Task<bool> DeleteOfficeAsync(Guid officeId)

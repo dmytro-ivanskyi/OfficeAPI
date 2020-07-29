@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Service.Abstraction.ResponseModels
 {
-    public class UserPermissionResponse
+    public class UserFullResponse
     {
         public Guid Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace Service.Abstraction.ResponseModels
         public int Age { get; set; }
 
         public Guid OfficeId { get; set; }
-
-        public IEnumerable<PermissionResponse> Permissions { get; set; }
+         
+        public IEnumerable<TaskResponse> Tasks { get; set; }
     }
 }

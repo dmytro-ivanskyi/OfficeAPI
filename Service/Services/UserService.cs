@@ -1,4 +1,7 @@
-﻿using Data.Abstraction.RepoInterfaces;
+﻿using AutoMapper;
+using Data.Abstraction.Models;
+using Data.Abstraction.RepoInterfaces;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ResponseModels;
 using Service.Abstraction.ServiceInterfaces;
 using System;
@@ -10,16 +13,32 @@ namespace Data.Abstraction.Services
     public class UserService : IUserService
     {
         private readonly IUserRepo _userRepo;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepo userRepo)
+        public UserService(IUserRepo userRepo, IMapper mapper)
         {
             _userRepo = userRepo;
+            _mapper = mapper;
         }
 
-        public async Task<bool> CreateUserAsync(UserResponse user)
+        public async Task<List<UserResponse>> GetUsersAsync()
         {
-            throw new NotImplementedException();
-            //return await _userRepo.CreateUserAsync(user);
+
+            var users = await _userRepo.GetUsersAsync();
+
+            return _mapper.Map<List<UserResponse>>(users);
+        }
+
+        public async Task<UserResponse> CreateUserAsync(CreateUserRequest user)
+        {
+            var newUser = _mapper.Map<User>(user);
+
+            var created = await _userRepo.CreateUserAsync(newUser);
+
+            if (!created)
+                return null;
+
+            return await GetUserByIdAsync(newUser.Id);
         }
 
         public async Task<bool> DeleteUserAsync(Guid userId)
@@ -29,20 +48,22 @@ namespace Data.Abstraction.Services
 
         public async Task<UserResponse> GetUserByIdAsync(Guid userId)
         {
-            throw new NotImplementedException();
-            //return await _userRepo.GetUserByIdAsync(userId);
+            var user = await _userRepo.GetUserByIdAsync(userId);
+
+            return _mapper.Map<UserResponse>(user);
         }
 
-        public async Task<List<UserResponse>> GetUsersAsync()
+        public async Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate)
         {
-            throw new NotImplementedException();
-            //return await _userRepo.GetUsersAsync();
-        }
+            var updatedUser = _mapper.Map<User>(userToUpdate);
+            updatedUser.Id = userId;
 
-        public async Task<bool> UpdateUserAsync(UserResponse userToUpdate)
-        {
-            throw new NotImplementedException();
-            //return await _userRepo.UpdateUserAsync(userToUpdate);
+            var updated = await _userRepo.UpdateUserAsync(updatedUser);
+
+            if (!updated)
+                return null;
+
+            return _mapper.Map<UserResponse>(updatedUser);
         }
     }
 }

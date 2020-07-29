@@ -13,9 +13,9 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<OfficeResponse> GetOfficeByIdAsync(Guid officeId);
 
-        Task<OfficeResponse> GetOfficeByIdWithUsersAsync(Guid officeId);
+        Task<OfficeWithUsersResponse> GetOfficeByIdWithUsersAsync(Guid officeId);
 
-        Task<OfficeResponse> UpdateOfficeAsync(Office officeToUpdate);
+        Task<OfficeResponse> UpdateOfficeAsync(Guid officeId , UpdateOfficeRequest officeToUpdate);
 
         Task<bool> DeleteOfficeAsync(Guid officeId);
 
