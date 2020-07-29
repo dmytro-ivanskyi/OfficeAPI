@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Service.Abstraction.ResponseModels
 {
-    public class PermissionResponse
+    public class OfficeWithUsersResponse
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public IEnumerable<UserShortResponse> Users { get; set; }
+       
     }
 }

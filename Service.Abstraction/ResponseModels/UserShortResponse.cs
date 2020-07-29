@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Service.Abstraction.ResponseModels
 {
-    public class UserResponse
+    public class UserShortResponse
     {
         public Guid Id { get; set; }
 
@@ -11,7 +13,5 @@ namespace Service.Abstraction.ResponseModels
         public string LastName { get; set; }
 
         public int Age { get; set; }
-
-        public Guid OfficeId { get; set; }
     }
 }

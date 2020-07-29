@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Data.Abstraction.Models;
 using Data.Abstraction.RepoInterfaces;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ResponseModels;
 using Service.Abstraction.ServiceInterfaces;
 
@@ -41,10 +42,14 @@ namespace Service.Services
             return _mapper.Map<OfficeResponse>(office);
         }
 
-        public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
+        public async Task<OfficeResponse> UpdateOfficeAsync(Office officeToUpdate)
         {
+            var updated = await _officeRepo.UpdateOfficeAsync(officeToUpdate);
 
-            return await _officeRepo.UpdateOfficeAsync(officeToUpdate);
+            if (!updated)
+                return null;
+
+            return await GetOfficeByIdAsync(officeToUpdate.Id);
         }
 
         public async Task<bool> DeleteOfficeAsync(Guid officeId)
@@ -52,9 +57,16 @@ namespace Service.Services
             return await _officeRepo.DeleteOfficeAsync(officeId);
         }
 
-        public async Task<bool> CreateOfficeAsync(Office office)
+        public async Task<OfficeResponse> CreateOfficeAsync(CreateOfficeRequest office)
         {
-            return await _officeRepo.CreateOfficeAsync(office);
+            var newOffice = _mapper.Map<Office>(office);
+
+            var created = await _officeRepo.CreateOfficeAsync(newOffice);
+
+            if (!created)
+                return null;
+
+            return await GetOfficeByIdAsync(newOffice.Id);
         }
     }
 }

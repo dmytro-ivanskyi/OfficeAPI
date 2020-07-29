@@ -1,4 +1,5 @@
 ﻿using Data.Abstraction.Models;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ResponseModels;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<OfficeResponse> GetOfficeByIdWithUsersAsync(Guid officeId);
 
-        Task<bool> UpdateOfficeAsync(Office officeToUpdate);
+        Task<OfficeResponse> UpdateOfficeAsync(Office officeToUpdate);
 
         Task<bool> DeleteOfficeAsync(Guid officeId);
 
-        Task<bool> CreateOfficeAsync(Office office);
+        Task<OfficeResponse> CreateOfficeAsync(CreateOfficeRequest office);
     }
 }

@@ -2,7 +2,7 @@
 using Data.Abstraction.Models;
 using Service.Abstraction.ResponseModels;
 
-namespace Data.Abstraction.Profiles
+namespace Data.Profiles
 {
     class TaskProfile : Profile
     {

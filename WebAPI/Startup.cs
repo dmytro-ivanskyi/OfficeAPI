@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.Abstraction.Profiles;
+using Service.Profiles;
 using Swashbuckle.AspNetCore.Swagger;
 using WebAPI.Installers;
 

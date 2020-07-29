@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Data.Abstraction.Models;
 using Microsoft.AspNetCore.Mvc;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ServiceInterfaces;
 using WebAPI.Contracts.V1;
-using WebAPI.Contracts.V1.Requests;
 
 namespace WebAPI.Controllers.V1
 {
@@ -65,19 +65,15 @@ namespace WebAPI.Controllers.V1
         [HttpPost(ApiRoutes.Offices.Create)]
         public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
         {
-            var office = new Office
-            {
-                Name = createOffice.Name
-            };
+            var created = await _officeService.CreateOfficeAsync(createOffice);
 
-            var created = await _officeService.CreateOfficeAsync(office);
-            if (!created)
+            if (created == null)
                 return BadRequest();
 
             var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var location = baseUri + "/" + ApiRoutes.Offices.Get.Replace("{officeId}", office.Id.ToString());
+            var location = baseUri + "/office/" + created.Id.ToString();
 
-            return Created(location, new { Message = "Office Created"});
+            return Created(location, created);
         }
 
 
@@ -90,10 +86,10 @@ namespace WebAPI.Controllers.V1
                 Name = request.Name
             };
 
-            var updated = await _officeService.UpdateOfficeAsync(office);
+            var officeUpdated = await _officeService.UpdateOfficeAsync(office);
 
-            if (updated)
-                return Ok(office);
+            if (officeUpdated != null)
+                return Ok(officeUpdated);
 
             return NotFound();
         }
