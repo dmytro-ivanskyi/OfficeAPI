@@ -14,6 +14,7 @@ namespace Service.Profiles
 
             CreateMap<CreateTaskRequest, UserTask>();
             CreateMap<UpdateTaskRequest, UserTask>();
+            // CreateMap<TaskShortResponse, TaskResponse>();
         }
     }
 }

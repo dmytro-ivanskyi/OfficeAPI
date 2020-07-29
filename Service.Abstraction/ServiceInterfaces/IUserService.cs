@@ -10,9 +10,9 @@ namespace Service.Abstraction.ServiceInterfaces
     {
         Task<List<UserResponse>> GetUsersAsync();
 
-        Task<UserResponse> GetUserByIdAsync(Guid userId);
+        Task<UserFullResponse> GetUserByIdAsync(Guid userId);
 
-        Task<UserFullResponse> GetUserFullByIdAsync(Guid userId);
+        Task<UserResponse> GetUserByIdShortAsync(Guid userId);
 
         Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate);
 

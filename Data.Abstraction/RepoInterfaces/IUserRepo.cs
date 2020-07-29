@@ -11,6 +11,8 @@ namespace Data.Abstraction.RepoInterfaces
 
         Task<User> GetUserByIdAsync(Guid userId);
 
+        Task<User> GetUserByIdShortAsync(Guid userId);
+
         Task<bool> CreateUserAsync(User user);
 
         Task<bool> UpdateUserAsync(User userToUpdate);

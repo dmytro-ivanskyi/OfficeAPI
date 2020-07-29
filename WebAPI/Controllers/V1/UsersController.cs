@@ -35,12 +35,6 @@ namespace WebAPI.Controllers.V1
             return Ok(await _userService.GetUserByIdAsync(userId));
         }
 
-        [HttpGet("{userId}/details")]
-        public async Task<IActionResult> GetUserTasks(Guid userId)
-        {
-            return Ok(await _userService.GetUserFullByIdAsync(userId));
-        }
-
 
         // POST api/user
         [HttpPost]

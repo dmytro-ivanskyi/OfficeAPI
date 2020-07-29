@@ -32,6 +32,11 @@ namespace Data.EF.Repositories
             return user;
         }
 
+        public async Task<User> GetUserByIdShortAsync(Guid userId)
+        {
+            return await _dataContext.Users.SingleOrDefaultAsync(x => x.Id == userId);
+        }
+
         public async Task<bool> CreateUserAsync(User user)
         {
             await _dataContext.Users.AddAsync(user);

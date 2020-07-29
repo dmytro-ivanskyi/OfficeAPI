@@ -38,7 +38,7 @@ namespace Data.Abstraction.Services
             if (!created)
                 return null;
 
-            return await GetUserByIdAsync(newUser.Id);
+            return await GetUserByIdShortAsync(newUser.Id);
         }
 
         public async Task<bool> DeleteUserAsync(Guid userId)
@@ -46,20 +46,20 @@ namespace Data.Abstraction.Services
             return await _userRepo.DeleteUserAsync(userId);
         }
 
-        public async Task<UserResponse> GetUserByIdAsync(Guid userId)
-        {
-            var user = await _userRepo.GetUserByIdAsync(userId);
-
-            return _mapper.Map<UserResponse>(user);
-        }
-
-        public async Task<UserFullResponse> GetUserFullByIdAsync(Guid userId)
+        public async Task<UserFullResponse> GetUserByIdAsync(Guid userId)
         {
             var user = await _userRepo.GetUserByIdAsync(userId);
 
             return _mapper.Map<UserFullResponse>(user);
         }
-        
+
+        public async Task<UserResponse> GetUserByIdShortAsync(Guid userId)
+        {
+            var user = await _userRepo.GetUserByIdShortAsync(userId);
+
+            return _mapper.Map<UserResponse>(user);
+        }
+
         public async Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate)
         {
             var updatedUser = _mapper.Map<User>(userToUpdate);
@@ -68,7 +68,7 @@ namespace Data.Abstraction.Services
             var updated = await _userRepo.UpdateUserAsync(updatedUser);
 
             if(updated)
-                return await GetUserByIdAsync(userId);
+                return await GetUserByIdShortAsync(userId);
 
             return null;
         }
