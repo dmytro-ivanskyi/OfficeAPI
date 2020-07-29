@@ -1,4 +1,5 @@
-﻿using Service.Abstraction.ResponseModels;
+﻿using Service.Abstraction.RequestModels;
+using Service.Abstraction.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<TaskResponse> GetTaskByIdAsync(Guid taskId);
 
-        Task<bool> CreateTaskAsync(TaskResponse task);
+        Task<TaskResponse> CreateTaskAsync(CreateTaskRequest task);
 
-        Task<bool> UpdateTaskAsync(TaskResponse taskToUpdate);
+        Task<TaskResponse> UpdateTaskAsync(Guid taskId, UpdateTaskRequest taskToUpdate);
 
         Task<bool> DeleteTaskAsync(Guid taskId);
     }

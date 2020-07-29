@@ -49,10 +49,10 @@ namespace Service.Services
 
             var updated = await _officeRepo.UpdateOfficeAsync(updatedOffice);
 
-            if (!updated)
-                return null;
+            if (updated)
+                return await GetOfficeByIdAsync(updatedOffice.Id);
 
-            return await GetOfficeByIdAsync(updatedOffice.Id);
+            return null;
         }
 
         public async Task<bool> DeleteOfficeAsync(Guid officeId)

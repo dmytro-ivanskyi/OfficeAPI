@@ -7,7 +7,7 @@ using WebAPI.Contracts.V1;
 
 namespace WebAPI.Controllers.V1
 {
-    // [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -20,24 +20,30 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        // GET: api/<UsersController>
-        [HttpGet(ApiRoutes.Users.GetAll)]
+        // GET: api/users
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             return Ok(await _userService.GetUsersAsync());
         }
 
 
-        // GET api/<UsersController>/5
-        [HttpGet(ApiRoutes.Users.Get)]
+        // GET api/user/5
+        [HttpGet("{userId}")]
         public async Task<IActionResult> Get(Guid userId)
         {
             return Ok(await _userService.GetUserByIdAsync(userId));
         }
 
+        [HttpGet("{userId}/details")]
+        public async Task<IActionResult> GetUserTasks(Guid userId)
+        {
+            return Ok(await _userService.GetUserFullByIdAsync(userId));
+        }
 
-        // POST api/<UsersController>
-        [HttpPost(ApiRoutes.Users.Create)]
+
+        // POST api/user
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateUserRequest request)
         {
             var created = await _userService.CreateUserAsync(request);
@@ -46,15 +52,14 @@ namespace WebAPI.Controllers.V1
                 return BadRequest();
 
             var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var location = baseUri + "/[controller]" + created.Id.ToString();
-
+            var location = baseUri + "/api/user/" + created.Id.ToString();
 
             return Created(location, created);
         }
 
 
-        // PUT api/<UsersController>/5
-        [HttpPut(ApiRoutes.Users.Update)]
+        // PUT api/user/5
+        [HttpPut("{userId}")]
         public async Task<IActionResult> Put(Guid userId, [FromBody] UpdateUserRequest request)
         {
 
@@ -67,8 +72,8 @@ namespace WebAPI.Controllers.V1
         }
 
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete(ApiRoutes.Users.Delete)]
+        // DELETE api/user/5
+        [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(Guid userId)
         {
             var deleted = await _userService.DeleteUserAsync(userId);

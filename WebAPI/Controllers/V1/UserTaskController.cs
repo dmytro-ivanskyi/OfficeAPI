@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ServiceInterfaces;
 
 namespace WebAPI.Controllers.V1
 {
-    [Route("api/userTasks")]
+    [Route("api/userTask")]
     [ApiController]
     public class UserTaskController : ControllerBase
     {
@@ -30,67 +31,44 @@ namespace WebAPI.Controllers.V1
             return Ok(await _taskService.GetTaskByIdAsync(taskId));
         }
 
-        //// POST: api/UserTask
-        //[HttpPost]
-        //public async Task<ActionResult> PostTask(CreateTaskRequest userTask)
-        //{
-        //    var task = new UserTask
-        //    {
-        //        Description = userTask.Description,
-        //        UserId = userTask.UserId
-        //    };
+        // POST: api/UserTask
+        [HttpPost]
+        public async Task<ActionResult> PostTask(CreateTaskRequest userTask)
+        {
+            var created = await _taskService.CreateTaskAsync(userTask);
 
-        //    var created = await _taskService.CreateTaskAsync(task);
-        //    if (!created)
-        //        return BadRequest();
+            if (created == null)
+                return BadRequest();
 
-        //    var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-        //    var location = baseUri + "/" + task.Id;
+            var baseUri = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            var location = baseUri + "/api/userTask/" + created.Id;
 
-        //    var response = new UserTaskResponse
-        //    {
-        //        Id = task.Id,
-        //        Description = task.Description,
-        //        UserId = task.UserId
-        //    };
+            return Created(location, created);
+        }
 
-        //    return Created(location, response);
-        //}
+        // PUT: api/UserTask/5
+        [HttpPut("{taskId}")]
+        public async Task<IActionResult> PutTask(Guid taskId, [FromBody] UpdateTaskRequest request)
+        {
 
-        //// PUT: api/UserTask/5
-        //[HttpPut("{taskId}")]
-        //public async Task<IActionResult> PutTask(Guid taskId, [FromBody] UpdateTaskRequest request)
-        //{
-        //    var task = new UserTask
-        //    {
-        //        Id = taskId,
-        //        Description = request.Description,
-        //        UserId = request.UserId
-        //    };
+            var updatedTask = await _taskService.UpdateTaskAsync(taskId, request);
 
-        //    var updated = await _taskService.UpdateTaskAsync(task);
+            if (updatedTask != null)
+                return Ok(updatedTask);
 
-        //    if (updated)
-        //        return Ok(new UserTaskResponse
-        //        {
-        //            Id = task.Id,
-        //            Description = task.Description,
-        //            UserId = task.UserId
-        //        });
+            return NotFound();
+        }
 
-        //    return NotFound();
-        //}
+        // DELETE: api/UserTask/5
+        [HttpDelete("{taskId}")]
+        public async Task<ActionResult> DeleteTask(Guid taskId)
+        {
+            var deleted = await _taskService.DeleteTaskAsync(taskId);
 
-        //// DELETE: api/UserTask/5
-        //[HttpDelete("{taskId}")]
-        //public async Task<ActionResult> DeleteTask(Guid taskId)
-        //{
-        //    var deleted = await _taskService.DeleteTaskAsync(taskId);
+            if (deleted)
+                return NoContent();
 
-        //    if (deleted)
-        //        return NoContent();
-
-        //    return NotFound();
-        //}
+            return NotFound();
+        }
     }
 }

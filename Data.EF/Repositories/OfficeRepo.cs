@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
 namespace Data.EF.Repositories
 {
@@ -37,6 +39,7 @@ namespace Data.EF.Repositories
         public async Task<bool> UpdateOfficeAsync(Office officeToUpdate)
         {
             _dataContext.Offices.Update(officeToUpdate);
+
             var updated = await _dataContext.SaveChangesAsync();
 
             return updated > 0;

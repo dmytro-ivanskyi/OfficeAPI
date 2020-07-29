@@ -2,13 +2,15 @@
 using Data.Abstraction.Models;
 using Service.Abstraction.ResponseModels;
 
-namespace Data.Profiles
+namespace Service.Profiles
 {
     class PermissionProfile : Profile
     {
         public PermissionProfile()
         {
             CreateMap<Permission, PermissionResponse>();
+
+            // CreateMap<CreatePermissionRequest, Permission>();
         }
     }
 }

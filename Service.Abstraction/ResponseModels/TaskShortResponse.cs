@@ -2,7 +2,7 @@
 
 namespace Service.Abstraction.ResponseModels
 {
-    class TaskShortResponse
+    public class TaskShortResponse
     {
         public Guid Id { get; set; }
 

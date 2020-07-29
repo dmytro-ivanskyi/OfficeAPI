@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.Contracts.V1.Requests
+namespace Service.Abstraction.RequestModels
 {
     public class UpdateTaskRequest
     {

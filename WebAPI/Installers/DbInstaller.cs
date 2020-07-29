@@ -31,8 +31,8 @@ namespace WebAPI.Installers
             //services.AddScoped<IUserPermissionService, UserPermissionService>();
             //services.AddScoped<IUserPermissionRepo, UserPermissionRepo>();
 
-            //services.AddScoped<ITaskService, TaskService>();
-            //services.AddScoped<ITaskRepo, TaskRepo>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ITaskRepo, TaskRepo>();
         }
     }
 }

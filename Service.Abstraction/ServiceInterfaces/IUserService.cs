@@ -12,6 +12,8 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<UserResponse> GetUserByIdAsync(Guid userId);
 
+        Task<UserFullResponse> GetUserFullByIdAsync(Guid userId);
+
         Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate);
 
         Task<bool> DeleteUserAsync(Guid userId);
