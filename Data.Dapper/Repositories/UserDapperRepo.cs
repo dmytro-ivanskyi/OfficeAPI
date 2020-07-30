@@ -44,16 +44,23 @@ namespace Data.Dapper.Repositories
 
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
-            var sql = "SELECT * FROM Users WHERE Id = @Id";
-            var sql_tasks = " SELECT Id, Description FROM Tasks WHERE UserID = @Id";
-            var sql_perm = " SELECT PermissionId FROM UserPermissions WHERE UserID = @Id";
+            //var sql = "SELECT * FROM Users WHERE Id = @Id";
+            //var sql_tasks = " SELECT Id, Description FROM Tasks WHERE UserID = @Id";
+            //var sql_perm = " SELECT PermissionId FROM UserPermissions WHERE UserID = @Id";
+            //using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            //{
+            //    connection.Open();
+            //    var user = await connection.QueryFirstAsync<User>(sql, new { Id = userId });
+            //    user.Tasks = (await connection.QueryAsync<UserTask>(sql_tasks, new { Id = userId })).ToList();
+            //    user.Permissions = (await connection.QueryAsync<UserPermission>(sql_perm, new { Id = userId })).ToList();
+
+            //    return user;
+            //}
+            var sql = "SELECT * FROM Users u JOIN Tasks ON Tasks.UserId = u.Id WHERE u.Id = @Id";
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var user = (await connection.QueryAsync<User>(sql, new { Id = userId })).FirstOrDefault();
-                user.Tasks = (await connection.QueryAsync<UserTask>(sql_tasks, new { Id = userId })).ToList();
-                user.Permissions = (await connection.QueryAsync<UserPermission>(sql_perm, new { Id = userId })).ToList();
-                
+                var user = await connection.QueryFirstAsync<User>(sql, new { Id = userId });
                 return user;
             }
         }
@@ -64,8 +71,8 @@ namespace Data.Dapper.Repositories
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var result = await connection.QueryAsync<User>(sql, new { Id = userId });
-                return result.FirstOrDefault();
+                var result = await connection.QueryFirstAsync<User>(sql, new { Id = userId });
+                return result;
             }
         }
 

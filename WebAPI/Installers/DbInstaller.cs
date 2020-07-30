@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Service.Abstraction.ServiceInterfaces;
 using Service.Services;
+using System;
 
 namespace WebAPI.Installers
 {
@@ -16,27 +17,41 @@ namespace WebAPI.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(options =>
+            
+            var dataProvider = configuration.GetValue<string>("DataProvider");
+            if (dataProvider == "EF")
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
+                services.AddDbContext<DataContext>(options =>
+                {
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                });
+
+                services.AddScoped<IOfficeRepo, OfficeRepo>();
+                services.AddScoped<IUserRepo, UserRepo>();
+                services.AddScoped<IPermissionRepo, PermissionRepo>();
+                services.AddScoped<IUserPermissionRepo, UserPermissionRepo>();
+                services.AddScoped<ITaskRepo, TaskRepo>();
+            }
+            else
+            {
+                services.AddScoped<SqlServerConnectionProvider>();
+
+                services.AddScoped<IOfficeRepo, OfficeDapperRepo>();
+                services.AddScoped<IUserRepo, UserDapperRepo>();
+            }
+
+
 
             services.AddScoped<IOfficeService, OfficeService>();
-            //services.AddScoped<IOfficeRepo, OfficeRepo>();
-            services.AddScoped<IOfficeRepo, OfficeDapperRepo>();
-
+            
             services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IUserRepo, UserRepo>();
-            services.AddScoped<IUserRepo, UserDapperRepo>();
-
-            services.AddScoped<IPermissionService, PermissionService>();
-            services.AddScoped<IPermissionRepo, PermissionRepo>();
-
-            services.AddScoped<IUserPermissionService, UserPermissionService>();
-            services.AddScoped<IUserPermissionRepo, UserPermissionRepo>();
-
-            services.AddScoped<ITaskService, TaskService>();
-            services.AddScoped<ITaskRepo, TaskRepo>();
+            
+            //services.AddScoped<IPermissionService, PermissionService>();
+           
+            //services.AddScoped<IUserPermissionService, UserPermissionService>();
+    
+            //services.AddScoped<ITaskService, TaskService>();
+     
         }
     }
 }
