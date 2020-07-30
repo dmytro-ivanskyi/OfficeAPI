@@ -14,10 +14,10 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<UserResponse> GetUserByIdShortAsync(Guid userId);
 
-        Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate);
+        Task<UserFullResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate);
 
         Task<bool> DeleteUserAsync(Guid userId);
 
-        Task<UserResponse> CreateUserAsync(CreateUserRequest user);
+        Task<UserFullResponse> CreateUserAsync(CreateUserRequest user);
     }
 }

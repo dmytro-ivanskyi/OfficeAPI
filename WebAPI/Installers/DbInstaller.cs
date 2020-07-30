@@ -1,5 +1,7 @@
 ﻿using Data.Abstraction.RepoInterfaces;
 using Data.Abstraction.Services;
+using Data.Dapper;
+using Data.Dapper.Repositories;
 using Data.EF;
 using Data.EF.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +22,12 @@ namespace WebAPI.Installers
             });
 
             services.AddScoped<IOfficeService, OfficeService>();
-            services.AddScoped<IOfficeRepo, OfficeRepo>();
+            //services.AddScoped<IOfficeRepo, OfficeRepo>();
+            services.AddScoped<IOfficeRepo, OfficeDapperRepo>();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepo, UserRepo>();
+            //services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IUserRepo, UserDapperRepo>();
 
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IPermissionRepo, PermissionRepo>();

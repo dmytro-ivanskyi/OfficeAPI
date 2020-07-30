@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Dapper.Repositories
 {
-    public class TaskRepo : ITaskRepo
+    public class TaskDapperRepo : ITaskRepo
     {
         public Task<bool> CreateTaskAsync(UserTask task)
         {

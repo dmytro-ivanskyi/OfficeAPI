@@ -29,7 +29,7 @@ namespace Data.Abstraction.Services
             return _mapper.Map<List<UserResponse>>(users);
         }
 
-        public async Task<UserResponse> CreateUserAsync(CreateUserRequest user)
+        public async Task<UserFullResponse> CreateUserAsync(CreateUserRequest user)
         {
             var newUser = _mapper.Map<User>(user);
 
@@ -38,7 +38,7 @@ namespace Data.Abstraction.Services
             if (!created)
                 return null;
 
-            return await GetUserByIdShortAsync(newUser.Id);
+            return await GetUserByIdAsync(newUser.Id);
         }
 
         public async Task<bool> DeleteUserAsync(Guid userId)
@@ -60,7 +60,7 @@ namespace Data.Abstraction.Services
             return _mapper.Map<UserResponse>(user);
         }
 
-        public async Task<UserResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate)
+        public async Task<UserFullResponse> UpdateUserAsync(Guid userId, UpdateUserRequest userToUpdate)
         {
             var updatedUser = _mapper.Map<User>(userToUpdate);
             updatedUser.Id = userId;
@@ -68,7 +68,7 @@ namespace Data.Abstraction.Services
             var updated = await _userRepo.UpdateUserAsync(updatedUser);
 
             if(updated)
-                return await GetUserByIdShortAsync(userId);
+                return await GetUserByIdAsync(userId);
 
             return null;
         }

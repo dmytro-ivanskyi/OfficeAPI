@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Data.Dapper.Repositories
 {
-    public class UserPermissionRepo : IUserPermissionRepo
+    public class UserPermissionDapperRepo : IUserPermissionRepo
     {
         public Task<bool> AsignUserPermissionAsync(UserPermission userPermission)
         {

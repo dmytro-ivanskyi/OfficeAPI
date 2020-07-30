@@ -6,34 +6,29 @@ using System.Threading.Tasks;
 
 namespace Data.Dapper.Repositories
 {
-    public class UserRepo : IUserRepo
+    public class PermissionDapperRepo : IPermissionRepo
     {
-        public Task<bool> CreateUserAsync(User user)
+        public Task<bool> CreatePermissionAsync(Permission permission)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteUserAsync(Guid userId)
+        public Task<bool> DeletePermissionAsync(Guid permissionId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByIdAsync(Guid userId)
+        public Task<Permission> GetPermissionByIdAsync(Guid permissionId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByIdShortAsync(Guid userId)
+        public Task<List<Permission>> GetPermissionsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetUsersAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateUserAsync(User userToUpdate)
+        public Task<bool> UpdatePermissionAsync(Permission permissionToUpdate)
         {
             throw new NotImplementedException();
         }
