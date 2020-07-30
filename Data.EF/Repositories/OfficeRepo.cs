@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq;
 
 namespace Data.EF.Repositories
 {
