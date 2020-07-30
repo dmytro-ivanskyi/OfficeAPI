@@ -16,5 +16,7 @@ namespace Service.Abstraction.ResponseModels
         public Guid OfficeId { get; set; }
          
         public IEnumerable<TaskShortResponse> Tasks { get; set; }
+
+        public IEnumerable<UserPermissionIdResponse> Permissions { get; set; }
     }
 }
