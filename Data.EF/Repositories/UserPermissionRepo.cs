@@ -12,7 +12,7 @@ namespace Data.EF.Repositories
         {
             _dataContext = data;
         }
-        public async Task<bool> CreateUserPermissionAsync(UserPermission userPermission)
+        public async Task<bool> AsignUserPermissionAsync(UserPermission userPermission)
         {
             await _dataContext.UserPermissions.AddAsync(userPermission);
 

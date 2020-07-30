@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Service.Abstraction.RequestModels;
 using Service.Abstraction.ServiceInterfaces;
-using WebAPI.Contracts.V1;
 
 namespace WebAPI.Controllers.V1
 {

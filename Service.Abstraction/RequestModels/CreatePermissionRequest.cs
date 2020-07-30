@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.Contracts.V1.Requests
+namespace Service.Abstraction.RequestModels
 {
     public class CreatePermissionRequest
     {
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
+
         public string Description { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Data.Abstraction.Models;
+using Service.Abstraction.RequestModels;
 using Service.Abstraction.ResponseModels;
 
 namespace Service.Profiles
@@ -10,7 +11,8 @@ namespace Service.Profiles
         {
             CreateMap<Permission, PermissionResponse>();
 
-            // CreateMap<CreatePermissionRequest, Permission>();
+            CreateMap<CreatePermissionRequest, Permission>();
+            CreateMap<UpdatePermissionRequest, Permission>();
         }
     }
 }

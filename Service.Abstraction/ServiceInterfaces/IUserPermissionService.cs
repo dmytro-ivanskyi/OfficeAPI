@@ -1,10 +1,10 @@
-﻿using Service.Abstraction.ResponseModels;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Service.Abstraction.ServiceInterfaces
 {
     public interface IUserPermissionService
     {
-        Task<bool> CreateUserPermissionAsync(UserPermissionResponse userPermission);
+        Task<bool> AsignUserPermissionAsync(Guid permissionId, Guid UserId);
     }
 }

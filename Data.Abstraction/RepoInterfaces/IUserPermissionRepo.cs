@@ -5,6 +5,6 @@ namespace Data.Abstraction.RepoInterfaces
 {
     public interface IUserPermissionRepo
     {
-        Task<bool> CreateUserPermissionAsync(UserPermission userPermission);
+        Task<bool> AsignUserPermissionAsync(UserPermission userPermission);
     }
 }

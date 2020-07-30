@@ -1,4 +1,5 @@
-﻿using Service.Abstraction.ResponseModels;
+﻿using Service.Abstraction.RequestModels;
+using Service.Abstraction.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace Service.Abstraction.ServiceInterfaces
 
         Task<PermissionResponse> GetPermissionByIdAsync(Guid permissionId);
 
-        Task<bool> CreatePermissionAsync(PermissionResponse permission);
+        Task<PermissionResponse> CreatePermissionAsync(CreatePermissionRequest permission);
 
-        Task<bool> UpdatePermissionAsync(PermissionResponse permissionToUpdate);
+        Task<PermissionResponse> UpdatePermissionAsync(Guid permissionId, UpdatePermissionRequest permissionToUpdate);
 
         Task<bool> DeletePermissionAsync(Guid permissionId);
     }
