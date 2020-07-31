@@ -6,6 +6,10 @@ namespace Data.Abstraction.Models
 {
     public class Office
     {
+        public Office()
+        {
+            Users = new List<User>();
+        }
         public Guid Id { get; set; }
 
         [Required]

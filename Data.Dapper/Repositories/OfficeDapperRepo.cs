@@ -63,23 +63,42 @@ namespace Data.Dapper.Repositories
         public async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
 
-            var sql = "SELECT Id, FirstName, LastName, Age FROM Users WHERE Users.OfficeId = @Id";
-            using (var connection = Context)
-            {
-                var office = await GetOfficeByIdAsync(officeId);
-                var users = await connection.QueryAsync<User>(sql, new { Id = officeId });
-                office.Users = users.ToList();
-                return office;
-            }
-            //var sql = "SELECT u.Id, u.FirstName, u.LastName, u.Age, u.OfficeId, o.[Name] FROM Users AS u JOIN Offices AS o ON o.Id = u.OfficeId WHERE u.OfficeId = '5114C24C-4571-48A2-6CD9-08D832E54650'";
+            //var sql = "SELECT Id, FirstName, LastName, Age FROM Users WHERE Users.OfficeId = @Id";
             //using (var connection = Context)
             //{
-            //    //var office = await GetOfficeByIdAsync(officeId);
-            //    var result = await connection.QueryAsync<User, Office, Office>(sql, (user, office) =>
-            //    {
-            //    }, splitOn: "Name");
-            //    return null;
+            //    var office = await GetOfficeByIdAsync(officeId);
+            //    var users = await connection.QueryAsync<User>(sql, new { Id = officeId });
+            //    office.Users = users.ToList();
+            //    return office;
             //}
+            var sql = "SELECT o.Id, o.[Name], u.Id, u.FirstName, u.LastName, u.Age, u.OfficeId  FROM Offices as o JOIN Users AS u ON o.Id = u.OfficeId WHERE u.OfficeId = @Id";
+            using (var connection = Context)
+            {
+                var queryParams = new { Id = officeId };
+                var result = await connection.QueryAsync<Office, User, Office>(sql, (office, user) =>
+                {
+                    office.Users.Add(user);
+                    return office;
+                }, queryParams, splitOn: "Id");
+
+                var office = new Office();
+               
+                if (result.Count() == 0)
+                {
+                    office = await GetOfficeByIdAsync(officeId);
+                }
+                else
+                {
+                    office.Id = result.First().Id;
+                    office.Name = result.First().Name;
+                    foreach (var o in result)
+                    {
+                        office.Users.Add(o.Users.FirstOrDefault());
+                    }
+                }  
+
+                return office;
+            }
         }
 
         public async Task<List<Office>> GetOfficesAsync()
