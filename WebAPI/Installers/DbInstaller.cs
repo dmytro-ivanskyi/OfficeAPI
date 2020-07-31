@@ -38,6 +38,9 @@ namespace WebAPI.Installers
 
                 services.AddScoped<IOfficeRepo, OfficeDapperRepo>();
                 services.AddScoped<IUserRepo, UserDapperRepo>();
+                services.AddScoped<IPermissionRepo, PermissionDapperRepo>();
+                services.AddScoped<IUserPermissionRepo, UserPermissionDapperRepo>();
+                services.AddScoped<ITaskRepo, TaskDapperRepo>();
             }
 
 
@@ -45,13 +48,13 @@ namespace WebAPI.Installers
             services.AddScoped<IOfficeService, OfficeService>();
             
             services.AddScoped<IUserService, UserService>();
-            
-            //services.AddScoped<IPermissionService, PermissionService>();
-           
-            //services.AddScoped<IUserPermissionService, UserPermissionService>();
-    
-            //services.AddScoped<ITaskService, TaskService>();
-     
+
+            services.AddScoped<IPermissionService, PermissionService>();
+
+            services.AddScoped<IUserPermissionService, UserPermissionService>();
+
+            services.AddScoped<ITaskService, TaskService>();
+
         }
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,7 +62,7 @@ namespace Data.Dapper.Repositories
 
         public async Task<Office> GetOfficeByIdWithUsersAsync(Guid officeId)
         {
-            
+
             var sql = "SELECT Id, FirstName, LastName, Age FROM Users WHERE Users.OfficeId = @Id";
             using (var connection = Context)
             {
@@ -72,6 +71,15 @@ namespace Data.Dapper.Repositories
                 office.Users = users.ToList();
                 return office;
             }
+            //var sql = "SELECT u.Id, u.FirstName, u.LastName, u.Age, u.OfficeId, o.[Name] FROM Users AS u JOIN Offices AS o ON o.Id = u.OfficeId WHERE u.OfficeId = '5114C24C-4571-48A2-6CD9-08D832E54650'";
+            //using (var connection = Context)
+            //{
+            //    //var office = await GetOfficeByIdAsync(officeId);
+            //    var result = await connection.QueryAsync<User, Office, Office>(sql, (user, office) =>
+            //    {
+            //    }, splitOn: "Name");
+            //    return null;
+            //}
         }
 
         public async Task<List<Office>> GetOfficesAsync()
