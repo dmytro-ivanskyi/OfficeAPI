@@ -63,6 +63,9 @@ namespace WebAPI.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateOfficeRequest createOffice)
         {
+            if (createOffice.Name == string.Empty)
+                return BadRequest();
+
             var created = await _officeService.CreateOfficeAsync(createOffice);
 
             if (created == null)
