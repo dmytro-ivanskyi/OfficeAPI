@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Service.Abstraction.ServiceInterfaces;
 using Service.Services;
-using System;
 
 namespace WebAPI.Installers
 {
