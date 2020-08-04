@@ -178,5 +178,16 @@ namespace WebAPI.Tests.Service.Tests
 
             Assert.That(response, Is.False);
         }
+
+        [Test]
+        public async Task OfficeService_GetByIdWithUsers_ReturnsOfficeWithUsers()
+        {
+            var response = await service.GetOfficeByIdWithUsersAsync(officeId);
+
+            Assert.IsInstanceOf<OfficeWithUsersResponse>(response);
+            Assert.IsInstanceOf<List<UserShortResponse>>(response.Users);
+            Assert.That(response.Users.Count(), Is.Not.Zero);
+            Assert.That(response.Id, Is.EqualTo(officeId));
+        }
     }
 }
